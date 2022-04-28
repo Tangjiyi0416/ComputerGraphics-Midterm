@@ -5,12 +5,19 @@
 class GameObject
 {
 public:
-	GameObject(GameObject* parent = nullptr, const vec3& position = vec3(), const vec3& rotation = vec3(), const vec3& scale = vec3(1.f));
+
+	GameObject(GameObject* parent = nullptr, const vec3& localPosition = vec3(), const vec3& localRotation = vec3(), const vec3& localScale = vec3(1.f));
 	~GameObject();
 	virtual void Update(float dt) = 0;
-	vec3 position;
-	vec3 rotation;
-	vec3 scale;
+	vec3 localPosition;
+	vec3 localRotation;
+	vec3 localScale;
+	vec3 ToWorld(vec3 vector) {
+		vec4 v4(vector);
+		if (parent != nullptr)
+			v4 = parent->_trs * v4;
+		return vec3(v4.x, v4.y, v4.z);
+	}
 	GameObject* parent;
 	virtual void Draw() = 0;
 protected:

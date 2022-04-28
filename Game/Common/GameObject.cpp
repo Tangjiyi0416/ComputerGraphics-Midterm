@@ -1,9 +1,9 @@
 #include "GameObject.h"
 
-GameObject::GameObject(GameObject* parent, const vec3& position, const vec3& rotation, const vec3& scale) :
-	position{ position },
-	rotation{ rotation },
-	scale{ scale },
+GameObject::GameObject(GameObject* parent, const vec3& localPosition, const vec3& localRotation, const vec3& localScale) :
+	localPosition{ localPosition },
+	localRotation{ localRotation },
+	localScale{ localScale },
 	parent{ parent },
 	_shapesNumber{ 0 },
 	_shapes{ nullptr }{
@@ -21,9 +21,9 @@ GameObject::~GameObject()
 }
 
 void GameObject::UpdateTRSMatrix() {
-	_translate = Translate(position);
-	_rotate = RotateX(rotation.x) * RotateY(rotation.y) * RotateZ(rotation.z);
-	_scale = Scale(scale);
+	_translate = Translate(localPosition);
+	_rotate = RotateX(localRotation.x) * RotateY(localRotation.y) * RotateZ(localRotation.z);
+	_scale = Scale(localScale);
 	if (parent != nullptr)
 		_trs = parent->_trs * _translate * _rotate * _scale;
 	else

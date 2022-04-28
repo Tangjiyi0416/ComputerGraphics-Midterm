@@ -12,9 +12,9 @@ public:
 	~Collider();
 };
 
-Collider::Collider(vec2 position, vec2 size)
+Collider::Collider(vec2 localPosition, vec2 size)
 {
-	_boundingBox = { position.x,position.y,size.x,size.y };
+	_boundingBox = { localPosition.x,localPosition.y,size.x,size.y };
 }
 
 Collider::~Collider()

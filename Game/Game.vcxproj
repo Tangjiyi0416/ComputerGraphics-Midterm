@@ -85,7 +85,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Common\common.cpp" />
-    <ClCompile Include="Common\CQuad.cpp" />
     <ClCompile Include="Common\GameObject.cpp" />
     <ClCompile Include="Common\Quad.cpp" />
     <ClCompile Include="Common\Shape.cpp" />
@@ -99,8 +98,8 @@
   <ItemGroup>
     <ClInclude Include="Common\Bullet.h" />
     <ClInclude Include="Common\Collider.h" />
-    <ClInclude Include="Common\CQuad.h" />
     <ClInclude Include="Common\GameObject.h" />
+    <ClInclude Include="Common\MainGun.h" />
     <ClInclude Include="Common\Player.h" />
     <ClInclude Include="Common\Quad.h" />
     <ClInclude Include="Common\Shape.h" />

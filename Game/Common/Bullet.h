@@ -4,14 +4,14 @@
 class Bullet :public GameObject
 {
 public:
-	Bullet(GameObject* parent = nullptr, const vec3& position = vec3(), const vec3& rotation = vec3(), const vec3& scale = vec3(10.f));
+	Bullet(GameObject* parent = nullptr, const vec3& localPosition = vec3(), const vec3& localRotation = vec3(), const vec3& localScale = vec3(10.f));
 	void Update(float dt);
 	void Draw();
 private:
 	GLfloat _moveSpeed;
 };
-Bullet::Bullet(GameObject* parent, const vec3& position, const vec3& rotation, const vec3& scale)
-	:GameObject{parent, position, rotation, scale }
+Bullet::Bullet(GameObject* parent, const vec3& localPosition, const vec3& localRotation, const vec3& localScale)
+	:GameObject{parent, localPosition, localRotation, localScale }
 {
 	_shapesNumber = 1;
 	_shapes = new Shape * [_shapesNumber];
@@ -24,7 +24,7 @@ Bullet::Bullet(GameObject* parent, const vec3& position, const vec3& rotation, c
 
 void Bullet::Update(float dt) {
 	//Handle movement
-	position.y += dt * _moveSpeed;
+	localPosition.y += dt * _moveSpeed;
 	UpdateTRSMatrix();
 
 	_shapes[0]->setModelMatrix(_trs);

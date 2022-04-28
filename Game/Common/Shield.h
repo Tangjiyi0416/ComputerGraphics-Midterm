@@ -4,7 +4,7 @@
 class Shield :public GameObject
 {
 public:
-	Shield(GameObject* parent = nullptr, const vec3& position = vec3(), const vec3& rotation = vec3(), const vec3& scale = vec3(1.f));
+	Shield(GameObject* parent = nullptr, const vec3& localPosition = vec3(), const vec3& localRotation = vec3(), const vec3& localScale = vec3(1.f));
 	void Update(float dt);
 	void Draw();
 private:
@@ -13,8 +13,8 @@ private:
 	GLfloat _rotateSpeed;
 	mat4 _shieldScaleMatrix;
 };
-Shield::Shield(GameObject* parent, const vec3& position, const vec3& rotation, const vec3& scale)
-	:GameObject{ parent, position, rotation, scale }
+Shield::Shield(GameObject* parent, const vec3& localPosition, const vec3& localRotation, const vec3& localScale)
+	:GameObject{ parent, localPosition, localRotation, localScale }
 {
 	_shapesNumber = 10;
 	_shapes = new Shape * [_shapesNumber];

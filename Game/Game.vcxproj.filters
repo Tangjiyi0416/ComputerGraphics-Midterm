@@ -4,9 +4,6 @@
     <ClCompile Include="Common\common.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="Common\CQuad.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -22,17 +19,17 @@
     <ClCompile Include="LinkList.cpp">
       <Filter>Source\Utilities</Filter>
     </ClCompile>
-    <ClCompile Include="Common\Quad.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="Common\Shape.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
     <ClCompile Include="Common\Text.cpp">
       <Filter>Common</Filter>
     </ClCompile>
     <ClCompile Include="Common\Timer.cpp">
       <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\Quad.cpp">
+      <Filter>Common\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\Shape.cpp">
+      <Filter>Common\Shapes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -51,9 +48,6 @@
     <ClInclude Include="Common\Collider.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="Common\CQuad.h">
-      <Filter>Common</Filter>
-    </ClInclude>
     <ClInclude Include="Common\GameObject.h">
       <Filter>Common</Filter>
     </ClInclude>
@@ -69,12 +63,6 @@
     <ClInclude Include="Common\Player.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="Common\Quad.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="Common\Shape.h">
-      <Filter>Common</Filter>
-    </ClInclude>
     <ClInclude Include="Common\Shield.h">
       <Filter>Common</Filter>
     </ClInclude>
@@ -87,25 +75,34 @@
     <ClInclude Include="View.h">
       <Filter>Source</Filter>
     </ClInclude>
+    <ClInclude Include="Common\MainGun.h">
+      <Filter>Common\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Quad.h">
+      <Filter>Common\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Shape.h">
+      <Filter>Common\Shapes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="fsShape.glsl">
-      <Filter>Source\shader</Filter>
+      <Filter>Source\Shader</Filter>
     </None>
     <None Include="fsText.glsl">
-      <Filter>Source\shader</Filter>
+      <Filter>Source\Shader</Filter>
     </None>
     <None Include="fsVtxColor.glsl">
-      <Filter>Source\shader</Filter>
+      <Filter>Source\Shader</Filter>
     </None>
     <None Include="vsShape.glsl">
-      <Filter>Source\shader</Filter>
+      <Filter>Source\Shader</Filter>
     </None>
     <None Include="vsText.glsl">
-      <Filter>Source\shader</Filter>
+      <Filter>Source\Shader</Filter>
     </None>
     <None Include="vsVtxColor.glsl">
-      <Filter>Source\shader</Filter>
+      <Filter>Source\Shader</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -118,11 +115,17 @@
     <Filter Include="Source">
       <UniqueIdentifier>{dac2e4d9-4259-4476-bbd1-3aa8973d98ff}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\shader">
-      <UniqueIdentifier>{bbb421b3-e793-4807-ad70-133dbafa82a6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Utilities">
       <UniqueIdentifier>{4ef2ddef-a900-4856-b3e9-1f902ea3280b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Weapon">
+      <UniqueIdentifier>{5fdeaa5e-3114-4145-986b-9710797477f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Shader">
+      <UniqueIdentifier>{bbb421b3-e793-4807-ad70-133dbafa82a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Shapes">
+      <UniqueIdentifier>{f28e031f-0494-4a48-9190-86f0abd297d6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
