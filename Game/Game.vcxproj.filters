@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Common\common.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\CQuad.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\GameObject.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="InitShader.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="InputUtilities.cpp">
+      <Filter>Source\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="LinkList.cpp">
+      <Filter>Source\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\Quad.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\Shape.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\Text.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\Timer.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Common\Bullet.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Angel.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\vec.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\CheckError.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Collider.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\CQuad.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\GameObject.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="InputUtilities.h">
+      <Filter>Source\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="LinkList.h">
+      <Filter>Source\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\mat.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Player.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Quad.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Shape.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Shield.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Text.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Timer.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="View.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="fsShape.glsl">
+      <Filter>Source\shader</Filter>
+    </None>
+    <None Include="fsText.glsl">
+      <Filter>Source\shader</Filter>
+    </None>
+    <None Include="fsVtxColor.glsl">
+      <Filter>Source\shader</Filter>
+    </None>
+    <None Include="vsShape.glsl">
+      <Filter>Source\shader</Filter>
+    </None>
+    <None Include="vsText.glsl">
+      <Filter>Source\shader</Filter>
+    </None>
+    <None Include="vsVtxColor.glsl">
+      <Filter>Source\shader</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Common">
+      <UniqueIdentifier>{a5867a34-c004-4748-b814-89e93f68a06e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header">
+      <UniqueIdentifier>{4b660867-c29d-4291-9e9b-7fc30bcbce41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{dac2e4d9-4259-4476-bbd1-3aa8973d98ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\shader">
+      <UniqueIdentifier>{bbb421b3-e793-4807-ad70-133dbafa82a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Utilities">
+      <UniqueIdentifier>{4ef2ddef-a900-4856-b3e9-1f902ea3280b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
