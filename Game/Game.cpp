@@ -38,13 +38,15 @@ void init() {
 
 }
 #pragma region DISPLAY
-Bullet* a = nullptr;
+Circle* a = nullptr;
 
 void GL_Display(void)
 {
+	///*
 	if (a != nullptr)
 		delete a;
-	a = new Bullet();
+	a = new Circle();
+	//*/
 	glClear(GL_COLOR_BUFFER_BIT); // clear the window
 	//g_pQuad->Draw();
 	g_player->Draw();
@@ -95,7 +97,7 @@ int main(int argc, char** argv)
 	glutDisplayFunc(GL_Display);
 	glutReshapeFunc(GL_Reshape);
 	glutIdleFunc(IdleProcess);
-	SetVSync(false);
+	//SetVSync(false);
 	glutMainLoop();
 	//delete g_pQuad;
 	delete g_text1;

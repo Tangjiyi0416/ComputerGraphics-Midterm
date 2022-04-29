@@ -15,8 +15,7 @@ GameObject::~GameObject()
 	if (_shapes != nullptr) {
 		for (size_t i = 0; i < _shapesNumber; i++)
 			if (_shapes[i] != nullptr) {
-		std::cout << "aaa" << std::endl;
-			
+				//std::cout << "aaa" << std::endl;
 				delete _shapes[i];
 			}
 		delete[]_shapes;

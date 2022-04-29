@@ -14,10 +14,12 @@ Shape::Shape() :
 Shape::~Shape()
 {
 	//std::cout << "aaaaa" << std::endl;
+	
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 	glDeleteVertexArrays(1, &_vao);
 	glDeleteBuffers(1, &_buffer);
+	
 	if (_points != nullptr)delete[]_points;
 	if (_colors != nullptr)delete[]_colors;
 	if (_vxShaderName != nullptr)delete[]_vxShaderName;

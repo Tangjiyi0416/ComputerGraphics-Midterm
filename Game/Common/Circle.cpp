@@ -9,8 +9,10 @@ Circle::Circle(GLfloat radius) :_radius{ radius }
 	_colors = new vec4[_vxNumber];
 	for (size_t i = 0; i < _vxNumber; i++)
 	{
-		GLfloat x = _radius * cosf(M_PI * 2.f * (double)i / _vxNumber);
-		GLfloat y = _radius * sinf(M_PI * 2.f * (double)i / _vxNumber);
+		GLfloat  theta = M_PI * 2.0f * ((double)i / _vxNumber + .25f);
+
+		GLfloat x = _radius * cosf(theta);
+		GLfloat y = _radius * sinf(theta);
 		_points[i] = vec4(x, y, 0.f, 1.f);
 		_colors[i] = vec4(1.0f, 1.0f, 1.0f, 1.0f);
 	}
@@ -38,7 +40,7 @@ void Circle::Draw()
 		glUniformMatrix4fv(_projection, 1, GL_TRUE, _projectionMatrix);
 		_updateProj = false;
 	}
-	glDrawArrays(GL_TRIANGLES, 0, CIRCLE_NUM);
+	glDrawArrays(GL_TRIANGLE_FAN, 0, CIRCLE_NUM);
 }
 
 void Circle::drawW()

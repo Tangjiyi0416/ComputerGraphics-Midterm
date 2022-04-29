@@ -1,6 +1,6 @@
 #pragma once
 #include "GameObject.h"
-#include "Quad.h"
+#include "Circle.h"
 class Bullet :public GameObject
 {
 public:
@@ -16,7 +16,7 @@ Bullet::Bullet(GameObject* parent, const vec3& localPosition, const vec3& localR
 {
 	_shapesNumber = 1;
 	_shapes = new Shape * [_shapesNumber];
-	_shapes[0] = new Quad;;
+	_shapes[0] = new Circle;
 	_shapes[0]->SetShader();
 	_shapes[0]->setModelMatrix(_trs);
 	_moveSpeed = 50.f;
