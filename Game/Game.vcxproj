@@ -84,6 +84,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Common\Circle.cpp" />
     <ClCompile Include="Common\common.cpp" />
     <ClCompile Include="Common\GameObject.cpp" />
     <ClCompile Include="Common\Quad.cpp" />
@@ -97,8 +98,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\Bullet.h" />
+    <ClInclude Include="Common\Circle.h" />
     <ClInclude Include="Common\Collider.h" />
     <ClInclude Include="Common\GameObject.h" />
+    <ClInclude Include="Common\Triangle.h" />
     <ClInclude Include="Common\MainGun.h" />
     <ClInclude Include="Common\Player.h" />
     <ClInclude Include="Common\Quad.h" />
@@ -119,8 +122,6 @@
     <None Include="fsShape.glsl" />
     <None Include="vsText.glsl" />
     <None Include="vsShape.glsl" />
-    <None Include="vsVtxColor.glsl" />
-    <None Include="fsVtxColor.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

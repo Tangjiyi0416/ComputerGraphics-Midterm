@@ -31,6 +31,9 @@
     <ClCompile Include="Common\Shape.cpp">
       <Filter>Common\Shapes</Filter>
     </ClCompile>
+    <ClCompile Include="Common\Circle.cpp">
+      <Filter>Common\Shapes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\Bullet.h">
@@ -84,6 +87,12 @@
     <ClInclude Include="Common\Shape.h">
       <Filter>Common\Shapes</Filter>
     </ClInclude>
+    <ClInclude Include="Common\Circle.h">
+      <Filter>Common\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Triangle.h">
+      <Filter>Common\Shapes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="fsShape.glsl">
@@ -92,16 +101,10 @@
     <None Include="fsText.glsl">
       <Filter>Source\Shader</Filter>
     </None>
-    <None Include="fsVtxColor.glsl">
-      <Filter>Source\Shader</Filter>
-    </None>
     <None Include="vsShape.glsl">
       <Filter>Source\Shader</Filter>
     </None>
     <None Include="vsText.glsl">
-      <Filter>Source\Shader</Filter>
-    </None>
-    <None Include="vsVtxColor.glsl">
       <Filter>Source\Shader</Filter>
     </None>
   </ItemGroup>

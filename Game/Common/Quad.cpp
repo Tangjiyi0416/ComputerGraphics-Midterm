@@ -25,7 +25,9 @@ Quad::Quad()
 	SetShaderName("vsShape.glsl", "fsShape.glsl");
 	CreateBufferObject();
 }
-Quad::~Quad() {}
+Quad::~Quad() {
+	//std::cout << "aa" << std::endl;
+}
 void Quad::Draw()
 {
 	glUseProgram(_shaderProgram);

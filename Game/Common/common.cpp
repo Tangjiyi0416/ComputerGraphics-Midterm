@@ -36,11 +36,11 @@ void IdleProcess()
 			g_ifps = g_icount;
 			g_icount = 0;
 			g_ckStart += g_felapse;
+			printf("%d\n", g_ifps);
 		}
 		delta = (float)((ckNow - g_fprev)/1000.0); // 計算間隔的時間
 		g_fprev = ckNow; // 記錄這次的時間，當成前一次的時間
 		onFrameMove(delta);
-		printf("%d\n",g_ifps);
 	}
 	glutPostRedisplay(); // 呼叫 Rendering 更新螢幕
 }

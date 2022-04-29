@@ -23,13 +23,13 @@ Player::Player(GameObject* parent, const vec3& localPosition, const vec3& localR
 	_shapes = new Shape * [_shapesNumber];
 	_shapes[0] = new Quad;
 	_shapes[0]->SetShader();
+	_shapes[0]->setModelMatrix(_trs);
 	_children.pushBack(new Shield(this, vec3(), vec3(), vec3(2.f)));
 	_children.pushBack(new MainGun(this, vec3(), vec3(), vec3(.5f)));
 }
 
 Player::~Player()
 {
-	//while (_bullets.front() != nullptr) delete _bullets.front()->data, _bullets.popFront();
 }
 void Player::Update(float dt) {
 
@@ -45,27 +45,6 @@ void Player::Update(float dt) {
 	UpdateTRSMatrix();
 	_shapes[0]->setModelMatrix(_trs);
 
-	/*
-	//Shoot
-	if (InputUtilities::GetKeyState(' ')) {
-		_bullets.pushBack(new Bullet(nullptr, position));
-
-	}
-	//Update bullets
-	ListNode<Bullet*>* curBullet = _bullets.front();
-	while (curBullet != nullptr) {
-		curBullet->data->Update(dt);
-		if (curBullet->data->position.y >= SCREEN_HEIGHT / 2-40.f) {
-			delete curBullet->data;
-			ListNode<Bullet*>* nextBullet = curBullet->next();
-			_bullets.remove(curBullet);
-			curBullet = nextBullet;
-		}
-		else {
-			curBullet = curBullet->next();
-		}
-	}
-	*/
 	//Update every child
 	ListNode<GameObject*>* curChild = _children.front();
 	while (curChild != nullptr) {
@@ -79,13 +58,6 @@ void Player::Draw() {
 	{
 		_shapes[i]->Draw();
 	}
-	/*
-	ListNode<Bullet*>* curBullet = _bullets.front();
-	while (curBullet != nullptr) {
-		curBullet->data->Draw();
-		curBullet = curBullet->next();
-	}
-	*/
 	ListNode<GameObject*>* curChild = _children.front();
 	while (curChild != nullptr) {
 		curChild->data->Draw();

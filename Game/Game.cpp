@@ -19,8 +19,10 @@ void SetVSync(bool);
 //Quad* g_pQuad;	// 宣告 Quad 指標物件，結束時記得釋放
 Player* g_player;
 Text* g_text1;
+
 // For Model View and Projection Matrix
 void init() {
+	//std::cout << sizeof(vec4) << std::endl;
 	glClearColor(0.0, 0.0, 0.0, 1.0); // black background
 	InputUtilities::Init();
 	Text::Init("fonts/arial.ttf", View::projection);
@@ -33,11 +35,16 @@ void init() {
 	//g_pQuad->SetShader(g_mxModelView, g_mxProjection);
 	g_player = new Player(nullptr, vec3(), vec3(), vec3(48.f));
 	g_text1 = new Text("Exp:0", vec3(255, 0, 0), -SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 48, 1.f);
+
 }
 #pragma region DISPLAY
+Bullet* a = nullptr;
 
 void GL_Display(void)
 {
+	if (a != nullptr)
+		delete a;
+	a = new Bullet();
 	glClear(GL_COLOR_BUFFER_BIT); // clear the window
 	//g_pQuad->Draw();
 	g_player->Draw();
@@ -93,6 +100,7 @@ int main(int argc, char** argv)
 	//delete g_pQuad;
 	delete g_text1;
 	delete g_player;
+	delete a;
 	std::cout << "Game Process terminated.";
 	return 0;
 }

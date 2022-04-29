@@ -19,17 +19,18 @@ Shield::Shield(GameObject* parent, const vec3& localPosition, const vec3& localR
 	_shapesNumber = 10;
 	_shapes = new Shape * [_shapesNumber];
 	_radius = 1.f;
+	_shieldScaleMatrix = Scale(0.4f);
 	for (size_t i = 0; i < _shapesNumber; i++)
 	{
 		_shapes[i] = new Quad;
 		_shapes[i]->SetShader();
-		GLfloat x = _radius * cosf(M_PI * 2.0f * ((double)i / _shapesNumber + .25f));
-		GLfloat y = _radius * sinf(M_PI * 2.0f * ((double)i / _shapesNumber + .25f));
+		GLfloat  theta = M_PI * 2.0f * ((double)i / _shapesNumber + .25f);
+		GLfloat x = _radius * cosf(theta);
+		GLfloat y = _radius * sinf(theta);
 		_shapes[i]->setModelMatrix(_trs * Translate(x, y, 0) * _shieldScaleMatrix);
 	}
 	_counter = 0;
 	_rotateSpeed = 0.2f;
-	_shieldScaleMatrix = Scale(0.4f);
 }
 
 void Shield::Update(float dt) {
@@ -39,8 +40,9 @@ void Shield::Update(float dt) {
 	_counter += dt * _rotateSpeed;
 	for (size_t i = 0; i < _shapesNumber; i++)
 	{
-		GLfloat x = _radius * cosf(M_PI * 2.0f * ((double)i / _shapesNumber + _counter + .25f));
-		GLfloat y = _radius * sinf(M_PI * 2.0f * ((double)i / _shapesNumber + _counter + .25f));
+		GLfloat  theta = M_PI * 2.0f * ((double)i / _shapesNumber + _counter + .25f);
+		GLfloat x = _radius * cosf(theta);
+		GLfloat y = _radius * sinf(theta);
 		_shapes[i]->setModelMatrix(_trs * Translate(x, y, 0) * _shieldScaleMatrix);
 	}
 	if (_counter >= 2.f) {

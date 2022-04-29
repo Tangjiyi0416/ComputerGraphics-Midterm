@@ -5,6 +5,7 @@ class Bullet :public GameObject
 {
 public:
 	Bullet(GameObject* parent = nullptr, const vec3& localPosition = vec3(), const vec3& localRotation = vec3(), const vec3& localScale = vec3(10.f));
+	
 	void Update(float dt);
 	void Draw();
 private:
@@ -18,8 +19,8 @@ Bullet::Bullet(GameObject* parent, const vec3& localPosition, const vec3& localR
 	_shapes[0] = new Quad;;
 	_shapes[0]->SetShader();
 	_shapes[0]->setModelMatrix(_trs);
-	_moveSpeed = 20.f;
-	std::cout << "bullet spawned" << std::endl;
+	_moveSpeed = 50.f;
+	//std::cout << "bullet spawned" << std::endl;
 }
 
 void Bullet::Update(float dt) {

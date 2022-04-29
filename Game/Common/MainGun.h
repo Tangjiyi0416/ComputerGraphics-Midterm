@@ -32,7 +32,6 @@ void MainGun::Update(float dt) {
 	UpdateTRSMatrix();
 	_shapes[0]->setModelMatrix(_trs);
 
-
 	//Shoot
 	if (InputUtilities::GetKeyState(' ')) {
 		_bullets.pushBack(new Bullet(nullptr, ToWorld(localPosition)));
@@ -41,7 +40,10 @@ void MainGun::Update(float dt) {
 	//Update bullets
 	ListNode<Bullet*>* curBullet = _bullets.front();
 	while (curBullet != nullptr) {
+		if (curBullet != nullptr) {
+
 		curBullet->data->Update(dt);
+		}
 		if (curBullet->data->localPosition.y >= SCREEN_HEIGHT / 2 - 40.f) {
 			delete curBullet->data;
 			ListNode<Bullet*>* nextBullet = curBullet->next();

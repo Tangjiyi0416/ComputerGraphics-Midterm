@@ -7,7 +7,7 @@ class GameObject
 public:
 
 	GameObject(GameObject* parent = nullptr, const vec3& localPosition = vec3(), const vec3& localRotation = vec3(), const vec3& localScale = vec3(1.f));
-	~GameObject();
+	virtual ~GameObject();
 	virtual void Update(float dt) = 0;
 	vec3 localPosition;
 	vec3 localRotation;
