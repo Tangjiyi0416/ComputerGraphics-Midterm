@@ -22,7 +22,6 @@ Player::Player(GameObject* parent, const vec3& localPosition, const vec3& localR
 	_shapesNumber = 1;
 	_shapes = new Shape * [_shapesNumber];
 	_shapes[0] = new Quad;
-	_shapes[0]->SetShader();
 	_shapes[0]->setModelMatrix(_trs);
 	_children.pushBack(new Shield(this, vec3(), vec3(), vec3(2.f)));
 	_children.pushBack(new MainGun(this, vec3(), vec3(), vec3(.5f)));

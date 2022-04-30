@@ -1,10 +1,9 @@
 #include "Shape.h"
 
+unordered_map<string, GLuint> Shape::_shaders = unordered_map<string, GLuint>();
 Shape::Shape() :
 	_points{ nullptr },
 	_colors{ nullptr },
-	_vxShaderName{nullptr},
-	_fragShaderName{nullptr},
 	_updateModel{ false },
 	_updateView{ false },
 	_updateProj{ false }
@@ -22,8 +21,9 @@ Shape::~Shape()
 	//*/
 	if (_points != nullptr)delete[]_points;
 	if (_colors != nullptr)delete[]_colors;
-	if (_vxShaderName != nullptr)delete[]_vxShaderName;
-	if (_fragShaderName != nullptr)delete[]_fragShaderName;
+	//legacy
+	//if (_vxShaderName != nullptr)delete[]_vxShaderName;
+	//if (_fragShaderName != nullptr)delete[]_fragShaderName;
 }
 
 void Shape::CreateBufferObject()
@@ -45,22 +45,33 @@ void Shape::CreateBufferObject()
 	glBindVertexArray(0);
 }
 void Shape::SetShaderName(const char vxShader[], const char fsShader[]) {
+	_vxShaderName = vxShader;
+	_fragShaderName = fsShader;
+	/* legacy
 	_vxShaderName = new char[strlen(vxShader) + 1];
 	strcpy(_vxShaderName, vxShader);
 	_fragShaderName = new char[strlen(fsShader) + 1];
 	strcpy(_fragShaderName, fsShader);
+	*/
 }
 
-void Shape::SetShader(mat4& viewMatrix, mat4& projectionMatrix, GLuint shaderHandle)
+void Shape::SetShader(mat4& viewMatrix, mat4& projectionMatrix)
 {
 	glBindVertexArray(_vao);
 	glBindBuffer(GL_ARRAY_BUFFER, _buffer);
-
+	string s = _vxShaderName + _fragShaderName;
+	if (_shaders.find(s) != _shaders.end()) {
+		_shaderProgram = _shaders[s];
+	}
+	else {
+		_shaderProgram = InitShader(_vxShaderName.c_str(), _fragShaderName.c_str());
+		_shaders[s]= _shaderProgram;
+	}
+	/* legacy
 	// Load shaders and use the resulting shader program
-	if (shaderHandle == MAX_UNSIGNED_INT) _shaderProgram = InitShader(_vxShaderName, _fragShaderName);
-	else _shaderProgram = shaderHandle;
+	if (_shaderProgram == MAX_UNSIGNED_INT) _shaderProgram = InitShader(_vxShaderName, _fragShaderName);
 	std::cout << _shaderProgram << std::endl;
-
+	*/
 	// set up vertex arrays
 	GLuint vPosition = glGetAttribLocation(_shaderProgram, "vPosition");
 	glEnableVertexAttribArray(vPosition);

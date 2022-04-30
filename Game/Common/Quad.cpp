@@ -22,8 +22,9 @@ Quad::Quad()
 	_colors[4] = vec4(0.0f, 0.0f, 1.0f, 1.0f);
 
 	// Create and initialize a buffer object 
-	SetShaderName("vsShape.glsl", "fsShape.glsl");
 	CreateBufferObject();
+	SetShaderName("vsShape.glsl", "fsShape.glsl");
+	SetShader();
 }
 Quad::~Quad() {
 	//std::cout << "aa" << std::endl;

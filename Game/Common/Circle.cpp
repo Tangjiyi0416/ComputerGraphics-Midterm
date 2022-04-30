@@ -19,8 +19,9 @@ Circle::Circle(GLfloat radius) :_radius{ radius }
 
 
 	// Create and initialize a buffer object 
-	SetShaderName("vsShape.glsl", "fsShape.glsl");
 	CreateBufferObject();
+	SetShaderName("vsShape.glsl", "fsShape.glsl");
+	SetShader();
 }
 Circle::~Circle() {}
 void Circle::Draw()

@@ -21,7 +21,6 @@ MainGun::MainGun(GameObject* parent, const vec3& localPosition, const vec3& loca
 	_shapesNumber = 1;
 	_shapes = new Shape * [_shapesNumber];
 	_shapes[0] = new Quad;
-	_shapes[0]->SetShader();
 }
 
 MainGun::~MainGun()
