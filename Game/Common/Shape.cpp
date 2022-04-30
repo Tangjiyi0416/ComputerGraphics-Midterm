@@ -14,12 +14,12 @@ Shape::Shape() :
 Shape::~Shape()
 {
 	//std::cout << "aaaaa" << std::endl;
-	
+	//*
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 	glDeleteVertexArrays(1, &_vao);
 	glDeleteBuffers(1, &_buffer);
-	
+	//*/
 	if (_points != nullptr)delete[]_points;
 	if (_colors != nullptr)delete[]_colors;
 	if (_vxShaderName != nullptr)delete[]_vxShaderName;
@@ -41,6 +41,8 @@ void Shape::CreateBufferObject()
 	glBufferSubData(GL_ARRAY_BUFFER, 0, _vxNumber * sizeof(vec4), _points);
 	glBufferSubData(GL_ARRAY_BUFFER, _vxNumber * sizeof(vec4), _vxNumber * sizeof(vec4), _colors);
 
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
 }
 void Shape::SetShaderName(const char vxShader[], const char fsShader[]) {
 	_vxShaderName = new char[strlen(vxShader) + 1];
@@ -51,9 +53,13 @@ void Shape::SetShaderName(const char vxShader[], const char fsShader[]) {
 
 void Shape::SetShader(mat4& viewMatrix, mat4& projectionMatrix, GLuint shaderHandle)
 {
+	glBindVertexArray(_vao);
+	glBindBuffer(GL_ARRAY_BUFFER, _buffer);
+
 	// Load shaders and use the resulting shader program
 	if (shaderHandle == MAX_UNSIGNED_INT) _shaderProgram = InitShader(_vxShaderName, _fragShaderName);
 	else _shaderProgram = shaderHandle;
+	std::cout << _shaderProgram << std::endl;
 
 	// set up vertex arrays
 	GLuint vPosition = glGetAttribLocation(_shaderProgram, "vPosition");
@@ -76,6 +82,8 @@ void Shape::SetShader(mat4& viewMatrix, mat4& projectionMatrix, GLuint shaderHan
 	_projectionMatrix = projectionMatrix;
 	glUniformMatrix4fv(_projection, 1, GL_TRUE, _projectionMatrix);
 
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
 }
 
 void Shape::setModelMatrix(mat4& mat)

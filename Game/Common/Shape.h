@@ -32,7 +32,6 @@ protected:
 public:
 	Shape();
 	virtual ~Shape();
-
 	//virtual void Update(float dt) = 0;
 	void SetShaderName(const char vxShaderName[], const char fsShaderName[]);
 	void SetShader(mat4& viewMatrix = View::view, mat4& projectionMatrix = View::projection, GLuint shaderHandle = MAX_UNSIGNED_INT);

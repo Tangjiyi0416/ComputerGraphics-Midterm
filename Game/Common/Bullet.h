@@ -5,7 +5,7 @@ class Bullet :public GameObject
 {
 public:
 	Bullet(GameObject* parent = nullptr, const vec3& localPosition = vec3(), const vec3& localRotation = vec3(), const vec3& localScale = vec3(10.f));
-	
+	~Bullet() {};
 	void Update(float dt);
 	void Draw();
 private:

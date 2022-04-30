@@ -12,6 +12,7 @@ GameObject::GameObject(GameObject* parent, const vec3& localPosition, const vec3
 
 GameObject::~GameObject()
 {
+	//*
 	if (_shapes != nullptr) {
 		for (size_t i = 0; i < _shapesNumber; i++)
 			if (_shapes[i] != nullptr) {
@@ -20,6 +21,7 @@ GameObject::~GameObject()
 			}
 		delete[]_shapes;
 	}
+	//*/
 	while (_children.front() != nullptr) delete _children.front()->data, _children.popFront();
 }
 
