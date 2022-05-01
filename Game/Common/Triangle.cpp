@@ -47,7 +47,7 @@ void Triangle::Draw()
 		glUniformMatrix4fv(_projection, 1, GL_TRUE, _projectionMatrix);
 		//_updateProj = false;
 	//}
-	glDrawArrays(GL_TRIANGLES, 0, TRIANGLE_NUM);
+	glDrawArrays(GL_TRIANGLES, 0, _vxNumber);
 }
 
 void Triangle::drawW()
@@ -64,5 +64,5 @@ void Triangle::drawW()
 	glUniformMatrix4fv(_projection, 1, GL_TRUE, _projectionMatrix);
 	//_bUpdateProj = false;
 //}
-	glDrawArrays(GL_TRIANGLES, 0, TRIANGLE_NUM);
+	glDrawArrays(GL_TRIANGLES, 0, _vxNumber);
 }

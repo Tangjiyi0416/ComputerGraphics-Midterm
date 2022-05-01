@@ -37,6 +37,9 @@
     <ClCompile Include="Common\Triangle.cpp">
       <Filter>Common\Shapes</Filter>
     </ClCompile>
+    <ClCompile Include="Common\Lens.cpp">
+      <Filter>Common\Shapes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\Bullet.h">
@@ -94,6 +97,9 @@
       <Filter>Common\Shapes</Filter>
     </ClInclude>
     <ClInclude Include="Common\Triangle.h">
+      <Filter>Common\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Lens.h">
       <Filter>Common\Shapes</Filter>
     </ClInclude>
   </ItemGroup>

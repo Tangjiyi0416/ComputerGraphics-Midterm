@@ -138,7 +138,19 @@ void Shape::setProjectionMatrix(mat4& mat)
 	_projectionMatrix = mat;
 	_updateProj = true;
 }
-
+void Shape::SetColor(vec4 color) {
+	for (int i = 0; i < _vxNumber; i++) {
+		_colors[i].x = color.x;
+		_colors[i].y = color.y;
+		_colors[i].z = color.z;
+		_colors[i].w = color.w;
+	}
+	glBindVertexArray(_vao);
+	glBindBuffer(GL_ARRAY_BUFFER, _buffer);
+	glBufferSubData(GL_ARRAY_BUFFER, _vxNumber * sizeof(vec4), _vxNumber * sizeof(vec4), _colors);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
+}
 //void Shape::UpdateTRSMatrix()
 //{
 //	_modelMatrix = parent * _localTransRotScaleMatrix;

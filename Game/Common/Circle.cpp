@@ -51,7 +51,7 @@ void Circle::Draw()
 		glUniformMatrix4fv(_projection, 1, GL_TRUE, _projectionMatrix);
 		//_updateProj = false;
 	//}
-	glDrawArrays(GL_TRIANGLE_FAN, 0, CIRCLE_NUM);
+	glDrawArrays(GL_TRIANGLE_FAN, 0, _vxNumber);
 }
 
 void Circle::drawW()
@@ -68,5 +68,5 @@ void Circle::drawW()
 	glUniformMatrix4fv(_projection, 1, GL_TRUE, _projectionMatrix);
 	//_bUpdateProj = false;
 //}
-	glDrawArrays(GL_TRIANGLES, 0, CIRCLE_NUM);
+	glDrawArrays(GL_TRIANGLES, 0, _vxNumber);
 }

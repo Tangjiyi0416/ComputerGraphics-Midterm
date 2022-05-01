@@ -1,48 +1,83 @@
-#include "Quad.h"
+#include "Lens.h"
 #include <iostream>
-Quad::Quad(vec3& position, vec3& rotation, vec3& scale)
+Lens::Lens(vec3& position, vec3& rotation, vec3& scale)
 	:Shape{ position,rotation,scale }
 {
 	Init();
 }
-Quad::Quad(mat4& localModelMatrix)
+Lens::Lens(mat4& localModelMatrix)
 	: Shape{ localModelMatrix }
 {
 	Init();
 }
 
-void Quad::Init() {
-	_vxNumber = QUAD_NUM;
+void Lens::Init() {
+	_radiusLeft = 0.7f;
+	_radiusRight = 0.7f;
+	_offsetLeft = 0.5f;
+	_offsetRight = 0.5f;
+
+	_vxNumber = LENS_NUM * 2;
 	_points = new vec4[_vxNumber];
-	_points[0] = vec4(-0.5f, 0.5f, 0.0f, 1.0f);
-	_points[2] = vec4(0.5f, 0.5f, 0.0f, 1.0f);
-	_points[1] = vec4(0.5f, -0.5f, 0.0f, 1.0f);
-	_points[3] = vec4(-0.5f, 0.5f, 0.0f, 1.0f);
-	_points[5] = vec4(0.5f, -0.5f, 0.0f, 1.0f);
-	_points[4] = vec4(-0.5f, -0.5f, 0.0f, 1.0f);
-
 	_colors = new vec4[_vxNumber];
-	_colors[0] = vec4(1.0f, 1.0f, 1.0f, 1.0f);  // (r, g, b, a)
-	_colors[2] = vec4(1.0f, 0.0f, 0.0f, 1.0f);
-	_colors[1] = vec4(0.0f, 1.0f, 0.0f, 1.0f);
-	_colors[3] = vec4(1.0f, 1.0f, 1.0f, 1.0f);
-	_colors[5] = vec4(0.0f, 1.0f, 0.0f, 1.0f);
-	_colors[4] = vec4(0.0f, 0.0f, 1.0f, 1.0f);
 
+	GLfloat theta =
+		acosf((
+			(
+				_radiusLeft * _radiusLeft
+				- _radiusRight * _radiusRight
+				- _offsetLeft * _offsetLeft
+				+ _offsetRight * _offsetRight
+				)
+			/ 2.f
+			/ (_offsetLeft + _offsetRight)
+			+ _offsetLeft
+			)
+			/ _radiusLeft
+		);
+	/*
+	_points[0] = vec4(cos(theta) * _radiusLeft - _offsetLeft, sin(theta) * _radiusLeft, 0, 1.f);
+	_points[1] = vec4(-cos(0) * _radiusRight + _offsetRight, sin(0) * _radiusRight, 0, 1.f);
+	_points[2] = vec4(cos(0) * _radiusLeft - _offsetLeft, sin(0) * _radiusLeft, 0, 1.f);
+	_points[3] = vec4(-cos(-theta) * _radiusRight + _offsetRight, sin(-theta) * _radiusRight, 0, 1.f);
+	*/
+
+	for (size_t i = 0; i < LENS_NUM; i++)
+	{
+		_points[i] = vec4(cos(theta - 2 * i * theta / LENS_NUM) * _radiusLeft - _offsetLeft, sin(theta - 2 * i * theta / LENS_NUM) * _radiusLeft, 0, 1.f);
+		std::cout << _points[i].x << ", " << _points[i].y << std::endl;
+
+	}
+	for (size_t i = LENS_NUM; i < _vxNumber; i++)
+	{
+		_points[i] = vec4(-cos(-3 * theta + 2 * i * theta / LENS_NUM) * _radiusRight + _offsetRight, sin(-3 * theta + 2 * i * theta / LENS_NUM) * _radiusRight, 0, 1.f);
+		std::cout << _points[i].x << ", " << _points[i].y << std::endl;
+
+	}
+	/*
+	_colors[0] = vec4(1, 0);
+	_colors[1] = vec4(1, 0);
+	_colors[2] = vec4(1, 0);
+	_colors[3] = vec4(1, 0);
+	*/
+	for (size_t i = 0; i < _vxNumber; i++)
+	{
+		_colors[i] = vec4(1.f, 1.f);
+	}
 	// Create and initialize a buffer object 
 	CreateBufferObject();
 	SetShaderName("vsShape.glsl", "fsShape.glsl");
-	SetShader(typeid(Quad).name());
+	SetShader(typeid(Lens).name());
 }
 
-Quad::~Quad() {
+Lens::~Lens() {
 	//std::cout << "aa" << std::endl;
 }
-void Quad::Draw()
+void Lens::Draw()
 {
 	GLuint curShader;
 	glGetIntegerv(GL_CURRENT_PROGRAM, (GLint*)&curShader);
-	if(curShader!=_shaderProgram) 
+	if (curShader != _shaderProgram)
 		glUseProgram(_shaderProgram);
 	glBindVertexArray(_vao);
 	//if (_updateModel) {
@@ -58,10 +93,10 @@ void Quad::Draw()
 	glUniformMatrix4fv(_projection, 1, GL_TRUE, _projectionMatrix);
 	//_updateProj = false;
 //}
-	glDrawArrays(GL_TRIANGLES, 0, _vxNumber);
+	glDrawArrays(GL_TRIANGLE_FAN, 0, _vxNumber);
 }
 
-void Quad::drawW()
+void Lens::drawW()
 {
 	glBindVertexArray(_vao);
 
@@ -78,7 +113,7 @@ void Quad::drawW()
 	glDrawArrays(GL_TRIANGLES, 0, _vxNumber);
 }
 
-//void Quad::Update(float dt) {
+//void Lens::Update(float dt) {
 //
 //}
 /*

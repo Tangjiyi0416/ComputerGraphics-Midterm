@@ -1,6 +1,6 @@
 #pragma once
 #include "GameObject.h"
-#include "Quad.h"
+#include "Circle.h"
 class Shield :public GameObject
 {
 public:
@@ -19,14 +19,15 @@ Shield::Shield(GameObject* parent, const vec3& localPosition, const vec3& localR
 	_shapesNumber = 10;
 	_shapes = new Shape * [_shapesNumber];
 	_radius = 1.f;
-	_shieldScaleMatrix = Scale(0.4f);
+	_shieldScaleMatrix = Scale(0.2f);
 	for (size_t i = 0; i < _shapesNumber; i++)
 	{
-		_shapes[i] = new Quad;
+		_shapes[i] = new Circle;
 		GLfloat theta = M_PI * 2.0f * ((double)i / _shapesNumber + .25f);
 		GLfloat x = _radius * cosf(theta);
 		GLfloat y = _radius * sinf(theta);
-		_shapes[i]->setModelMatrix(_trs * Translate(x, y, 0) * _shieldScaleMatrix);
+		_shapes[i]->setLocalModelMatrix(_shieldScaleMatrix);
+		_shapes[i]->setModelMatrix(_trs * Translate(x, y, 0));
 	}
 	_counter = 0;
 	_rotateSpeed = 0.2f;
@@ -42,7 +43,7 @@ void Shield::Update(float dt) {
 		GLfloat  theta = M_PI * 2.0f * ((double)i / _shapesNumber + _counter + .25f);
 		GLfloat x = _radius * cosf(theta);
 		GLfloat y = _radius * sinf(theta);
-		_shapes[i]->setModelMatrix(_trs * Translate(x, y, 0) * _shieldScaleMatrix);
+		_shapes[i]->setModelMatrix(_trs * Translate(x, y, 0));
 	}
 	if (_counter >= 2.f) {
 		_counter -= 2.f;

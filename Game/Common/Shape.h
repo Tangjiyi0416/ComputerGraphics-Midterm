@@ -59,6 +59,7 @@ public:
 	void setModelMatrix(mat4& mat);
 	void setViewMatrix(mat4& mat);
 	void setProjectionMatrix(mat4& mat);
+	void SetColor(vec4);
 	//void UpdateTRSMatrix();
 	virtual void Draw() = 0;
 	virtual void drawW() = 0;

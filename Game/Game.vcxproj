@@ -84,6 +84,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Common\Lens.cpp" />
     <ClCompile Include="Common\Circle.cpp" />
     <ClCompile Include="Common\common.cpp" />
     <ClCompile Include="Common\GameObject.cpp" />
@@ -98,6 +99,7 @@
     <ClCompile Include="LinkList.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Common\Lens.h" />
     <ClInclude Include="Common\Bullet.h" />
     <ClInclude Include="Common\Circle.h" />
     <ClInclude Include="Common\Collider.h" />
