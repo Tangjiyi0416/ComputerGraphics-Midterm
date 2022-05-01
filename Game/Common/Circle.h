@@ -1,18 +1,16 @@
 #pragma once
 #include "Shape.h"
 #define CIRCLE_NUM 120
-//Quick Step:
-//	1.new
-//	2.SetShader()
-//	3.call Draw;
 
 class Circle :public Shape
 {
 private:
 	GLfloat _radius;
 	Circle(const Circle& q);
+	void Init();
 public:
-	Circle(GLfloat radius = 1.f);
+	Circle(vec3& position, vec3& rotation = vec3(), vec3& scale = vec3(1.f));
+	Circle(mat4& localModelMatrix = mat4());
 	~Circle();
 	void Draw();
 	void drawW();

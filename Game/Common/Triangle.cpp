@@ -1,40 +1,36 @@
 
-#include "Circle.h"
+#include "Triangle.h"
 
 #include <iostream>
-Circle::Circle(vec3& position, vec3& rotation, vec3& scale)
+Triangle::Triangle(vec3& position, vec3& rotation, vec3& scale)
 	:Shape{ position,rotation,scale }
 {
 	Init();
 }
-Circle::Circle(mat4& localModelMatrix)
+Triangle::Triangle(mat4& localModelMatrix)
 	: Shape{ localModelMatrix }
 {
 	Init();
 }
-void Circle::Init() {
-	_radius = 1;
-	_vxNumber = CIRCLE_NUM;
+void Triangle::Init() {
+	_vxNumber = TRIANGLE_NUM;
 	_points = new vec4[_vxNumber];
+	_points[0] = vec4(0.0f, 0.5f, 0.0f, 1.0f);
+	_points[1] = vec4(-0.7071f, -0.7071f, 0.0f, 1.0f);
+	_points[2] = vec4(0.7071f, -0.7071f, 0.0f, 1.0f);
+
 	_colors = new vec4[_vxNumber];
-	for (size_t i = 0; i < _vxNumber; i++)
-	{
-		GLfloat  theta = M_PI * 2.0f * ((double)i / _vxNumber + .25f);
-
-		GLfloat x = _radius * cosf(theta);
-		GLfloat y = _radius * sinf(theta);
-		_points[i] = vec4(x, y, 0.f, 1.f);
-		_colors[i] = vec4(1.0f, 1.0f, 1.0f, 1.0f);
-	}
-
+	_colors[0] = vec4(1.0f, 0.0f, 0.0f, 1.0f);
+	_colors[1] = vec4(0.0f, 1.f, 0.0f, 1.0f);
+	_colors[2] = vec4(0.0f, 0.0f, 1.0f, 1.0f);
 
 	// Create and initialize a buffer object 
 	CreateBufferObject();
 	SetShaderName("vsShape.glsl", "fsShape.glsl");
-	SetShader(typeid(Circle).name());
+	SetShader(typeid(Triangle).name());
 }
-Circle::~Circle() {}
-void Circle::Draw()
+Triangle::~Triangle() {}
+void Triangle::Draw()
 {
 	glUseProgram(_shaderProgram);
 	glBindVertexArray(_vao);
@@ -51,10 +47,10 @@ void Circle::Draw()
 		glUniformMatrix4fv(_projection, 1, GL_TRUE, _projectionMatrix);
 		//_updateProj = false;
 	//}
-	glDrawArrays(GL_TRIANGLE_FAN, 0, CIRCLE_NUM);
+	glDrawArrays(GL_TRIANGLES, 0, TRIANGLE_NUM);
 }
 
-void Circle::drawW()
+void Triangle::drawW()
 {
 	glBindVertexArray(_vao);
 
@@ -68,5 +64,5 @@ void Circle::drawW()
 	glUniformMatrix4fv(_projection, 1, GL_TRUE, _projectionMatrix);
 	//_bUpdateProj = false;
 //}
-	glDrawArrays(GL_TRIANGLES, 0, CIRCLE_NUM);
+	glDrawArrays(GL_TRIANGLES, 0, TRIANGLE_NUM);
 }

@@ -23,7 +23,7 @@ Shield::Shield(GameObject* parent, const vec3& localPosition, const vec3& localR
 	for (size_t i = 0; i < _shapesNumber; i++)
 	{
 		_shapes[i] = new Quad;
-		GLfloat  theta = M_PI * 2.0f * ((double)i / _shapesNumber + .25f);
+		GLfloat theta = M_PI * 2.0f * ((double)i / _shapesNumber + .25f);
 		GLfloat x = _radius * cosf(theta);
 		GLfloat y = _radius * sinf(theta);
 		_shapes[i]->setModelMatrix(_trs * Translate(x, y, 0) * _shieldScaleMatrix);

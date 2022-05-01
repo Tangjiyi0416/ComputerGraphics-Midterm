@@ -16,9 +16,9 @@ Bullet::Bullet(GameObject* parent, const vec3& localPosition, const vec3& localR
 {
 	_shapesNumber = 1;
 	_shapes = new Shape * [_shapesNumber];
-	_shapes[0] = new Circle;
+	_shapes[0] = new Circle(vec3(), vec3(), vec3(0.4f));
 	_shapes[0]->setModelMatrix(_trs);
-	_moveSpeed = 50.f;
+	_moveSpeed = 500.f;
 	//std::cout << "bullet spawned" << std::endl;
 }
 

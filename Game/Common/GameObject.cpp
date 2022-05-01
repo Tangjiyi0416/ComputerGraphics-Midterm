@@ -6,7 +6,8 @@ GameObject::GameObject(GameObject* parent, const vec3& localPosition, const vec3
 	localScale{ localScale },
 	parent{ parent },
 	_shapesNumber{ 0 },
-	_shapes{ nullptr }{
+	_shapes{ nullptr }
+{
 	UpdateTRSMatrix();
 }
 

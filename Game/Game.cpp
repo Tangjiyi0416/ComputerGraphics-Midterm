@@ -33,22 +33,15 @@ void init() {
 	//  產生 projection 矩陣，此處為產生正投影矩陣
 	//g_mxProjection = Ortho(-2.0f, 2.0f, -2.0f, 2.0f, -2.0f, 2.0f);
 	//g_pQuad->SetShader(g_mxModelView, g_mxProjection);
-	g_player = new Player(nullptr, vec3(), vec3(), vec3(48.f));
-	g_text1 = new Text("Exp:0", vec3(255, 0, 0), -SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 48, 1.f);
+	g_text1 = new Text("", vec3(255, 0, 0), -SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 48, 1.f);
+	g_player = new Player(nullptr, vec3(), vec3(), vec3(20.f));
 
 }
 #pragma region DISPLAY
 
-//init shader caused the leak
-Bullet* a = nullptr;
-
 void GL_Display(void)
 {
-	///*
-	if (a != nullptr)
-		delete a;
-	a = new Bullet();
-	//*/
+
 	glClear(GL_COLOR_BUFFER_BIT); // clear the window
 	//g_pQuad->Draw();
 	g_player->Draw();
@@ -60,7 +53,8 @@ void GL_Display(void)
 void GL_Reshape(GLsizei w, GLsizei h)
 {
 	glViewport(0, 0, w, h);
-	glutReshapeWindow(SCREEN_WIDTH, SCREEN_HEIGHT);
+	//glutReshapeWindow(SCREEN_WIDTH, SCREEN_HEIGHT);
+	//std::cout << "reshape" << std::endl;
 }
 extern void IdleProcess();
 void onFrameMove(float delta)
@@ -99,12 +93,12 @@ int main(int argc, char** argv)
 	glutDisplayFunc(GL_Display);
 	glutReshapeFunc(GL_Reshape);
 	glutIdleFunc(IdleProcess);
-	//SetVSync(false);
+	SetVSync(false);
 	glutMainLoop();
 	//delete g_pQuad;
 	delete g_text1;
 	delete g_player;
-	delete a;
+
 	std::cout << "Game Process terminated.";
 	return 0;
 }

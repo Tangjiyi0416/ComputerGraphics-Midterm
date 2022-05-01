@@ -13,6 +13,8 @@ public:
 	void Draw();
 private:
 	GLfloat _speed = 100.f;
+	GLfloat _cooldown = .1f;
+	GLfloat _curCooldown = 0.f;
 	Linklist<Bullet*> _bullets;
 };
 MainGun::MainGun(GameObject* parent, const vec3& localPosition, const vec3& localRotation, const vec3& localScale)
@@ -32,18 +34,19 @@ void MainGun::Update(float dt) {
 	_shapes[0]->setModelMatrix(_trs);
 
 	//Shoot
-	if (InputUtilities::GetKeyState(' ')) {
+	if (InputUtilities::GetKeyState(' ') && _curCooldown <= 0) {
 		_bullets.pushBack(new Bullet(nullptr, ToWorld(localPosition)));
-
+		_curCooldown = _cooldown;
 	}
+	_curCooldown -= dt;
 	//Update bullets
 	ListNode<Bullet*>* curBullet = _bullets.front();
 	while (curBullet != nullptr) {
 		if (curBullet != nullptr) {
 
-		curBullet->data->Update(dt);
+			curBullet->data->Update(dt);
 		}
-		if (curBullet->data->localPosition.y >= SCREEN_HEIGHT / 2 - 40.f) {
+		if (curBullet->data->localPosition.y >= SCREEN_HEIGHT / 2) {
 			delete curBullet->data;
 			ListNode<Bullet*>* nextBullet = curBullet->next();
 			_bullets.remove(curBullet);

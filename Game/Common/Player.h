@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Quad.h"
+#include "Triangle.h"
 #include "../InputUtilities.h"
 #include "Shield.h"
 #include "Bullet.h"
@@ -13,18 +14,23 @@ public:
 	void Update(float dt);
 	void Draw();
 private:
-	GLfloat _speed = 100.f;
+	GLfloat _speed = 180.f;
 	//Linklist<Bullet*> _bullets;
 };
 Player::Player(GameObject* parent, const vec3& localPosition, const vec3& localRotation, const vec3& localScale)
 	:GameObject{ parent, localPosition, localRotation, localScale }
 {
-	_shapesNumber = 1;
+	_shapesNumber = 2;
 	_shapes = new Shape * [_shapesNumber];
 	_shapes[0] = new Quad;
-	_shapes[0]->setModelMatrix(_trs);
+	vec3 a = vec3(0,1.2071,0);
+	_shapes[1] = new Triangle(a);
+	for (size_t i = 0; i < _shapesNumber; i++)
+	{
+		_shapes[i]->setModelMatrix(_trs);
+	}
 	_children.pushBack(new Shield(this, vec3(), vec3(), vec3(2.f)));
-	_children.pushBack(new MainGun(this, vec3(), vec3(), vec3(.5f)));
+	_children.pushBack(new MainGun(this, vec3(0,1.2071f,0), vec3(), vec3(.5f)));
 }
 
 Player::~Player()
@@ -42,7 +48,10 @@ void Player::Update(float dt) {
 	_direction *= dt * _speed;
 	localPosition += _direction;
 	UpdateTRSMatrix();
-	_shapes[0]->setModelMatrix(_trs);
+	for (size_t i = 0; i < _shapesNumber; i++)
+	{
+		_shapes[i]->setModelMatrix(_trs);
+	}
 
 	//Update every child
 	ListNode<GameObject*>* curChild = _children.front();

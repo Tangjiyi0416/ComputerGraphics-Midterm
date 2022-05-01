@@ -4,15 +4,16 @@
 
 //Quick Step:
 //	1.new
-//	2.SetShader()
-//	3.call Draw;
+//	2.call Draw;
 
 class Quad :public Shape
 {
 private:
 	Quad(const Quad& q);
+	void Init();
 public:
-	Quad();
+	Quad(vec3& position, vec3& rotation = vec3(), vec3& scale = vec3(1.f));
+	Quad(mat4& localModelMatrix = mat4());
 	~Quad();
 	void Draw();
 	void drawW();

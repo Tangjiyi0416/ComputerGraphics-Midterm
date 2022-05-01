@@ -1,9 +1,17 @@
-
 #include "Quad.h"
-
 #include <iostream>
-Quad::Quad()
+Quad::Quad(vec3& position, vec3& rotation, vec3& scale)
+	:Shape{ position,rotation,scale }
 {
+	Init();
+}
+Quad::Quad(mat4& localModelMatrix)
+	: Shape{ localModelMatrix }
+{
+	Init();
+}
+
+void Quad::Init() {
 	_vxNumber = QUAD_NUM;
 	_points = new vec4[_vxNumber];
 	_points[0] = vec4(-0.5f, 0.5f, 0.0f, 1.0f);
@@ -24,28 +32,32 @@ Quad::Quad()
 	// Create and initialize a buffer object 
 	CreateBufferObject();
 	SetShaderName("vsShape.glsl", "fsShape.glsl");
-	SetShader();
+	SetShader(typeid(Quad).name());
 }
+
 Quad::~Quad() {
 	//std::cout << "aa" << std::endl;
 }
 void Quad::Draw()
 {
-	glUseProgram(_shaderProgram);
+	GLuint curShader;
+	glGetIntegerv(GL_CURRENT_PROGRAM, (GLint*)&curShader);
+	if(curShader!=_shaderProgram) 
+		glUseProgram(_shaderProgram);
 	glBindVertexArray(_vao);
-	if (_updateModel) {
-		glUniformMatrix4fv(_model, 1, GL_TRUE, _modelMatrix);
-		_updateModel = false;
-	}
-	if (_updateView) {
-		glUniformMatrix4fv(_view, 1, GL_TRUE, _viewMatrix);
-		_updateView = false;
-	}
+	//if (_updateModel) {
+	glUniformMatrix4fv(_model, 1, GL_TRUE, _modelMatrix * _localModelMatrix);
+	//_updateModel = false;
+//}
+//if (_updateView) {
+	glUniformMatrix4fv(_view, 1, GL_TRUE, _viewMatrix);
+	//_updateView = false;
+//}
 
-	if (_updateProj) {
-		glUniformMatrix4fv(_projection, 1, GL_TRUE, _projectionMatrix);
-		_updateProj = false;
-	}
+//if (_updateProj) {
+	glUniformMatrix4fv(_projection, 1, GL_TRUE, _projectionMatrix);
+	//_updateProj = false;
+//}
 	glDrawArrays(GL_TRIANGLES, 0, QUAD_NUM);
 }
 

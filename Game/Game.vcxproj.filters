@@ -34,6 +34,9 @@
     <ClCompile Include="Common\Circle.cpp">
       <Filter>Common\Shapes</Filter>
     </ClCompile>
+    <ClCompile Include="Common\Triangle.cpp">
+      <Filter>Common\Shapes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\Bullet.h">

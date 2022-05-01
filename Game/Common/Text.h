@@ -6,6 +6,10 @@
 
 //Really basic text rendering object - encapsulated(partially) for later use
 //resources:
+//	vcpkg for freetype-gl: https://ithelp.ithome.com.tw/articles/10221612
+//	CMake for freetype-gl: https://ithelp.ithome.com.tw/articles/10221168
+//	Someone that reminds be about the PATH stuff: https://github.com/jpbruyere/vkvg/issues/36
+//  Doxygen for IDK Docs?: https://www.doxygen.nl/download.html
 //	Text Rendering: https://learnopengl.com/In-Practice/Text-Rendering
 //conclusion:
 //	It works. (?

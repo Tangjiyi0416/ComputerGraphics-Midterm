@@ -22,6 +22,8 @@ void Text::Init(const char* fontPath, const mat4& projectionMatrix) {
 	// compile and setup the shader
 	// ----------------------------
 	_shaderProgram = InitShader("vsText.glsl", "fsText.glsl");
+	//std::cout << "Text:" << _shaderProgram << std::endl;
+
 	_projectionMatrix = projectionMatrix;
 	glUniformMatrix4fv(glGetUniformLocation(_shaderProgram, "projection"), 1, GL_FALSE, _projectionMatrix);
 
@@ -130,6 +132,7 @@ void Text::Draw()
 
 	// activate corresponding render state	
 	glUseProgram(_shaderProgram);
+	//std::cout << _shaderProgram << std::endl;
 	glUniform3f(glGetUniformLocation(_shaderProgram, "textColor"), _color.x, _color.y, _color.z);
 	glActiveTexture(GL_TEXTURE0);
 	glBindVertexArray(_vao);

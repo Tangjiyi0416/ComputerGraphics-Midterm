@@ -5,8 +5,9 @@
 #include <iostream>
 #include <unordered_map>
 #include <string>
+#include <typeinfo>
 //string for map's key
-using std::string; 
+using std::string;
 //Since I think simple factory pattern is overkilld for shader instances
 //, I will simply use a hashmap to store it instead, does that make sense? IDK.
 using std::unordered_map;
@@ -25,7 +26,7 @@ protected:
 	vec4* _colors;
 
 	int _vxNumber;
-	string _vxShaderName,  _fragShaderName;
+	char* _vxShaderName, * _fragShaderName;
 	// VAO
 	GLuint _vao;
 	// VBO
@@ -36,7 +37,7 @@ protected:
 	// Vertex Position Attribute
 	GLuint _model, _view, _projection;
 	// Matrix 
-	mat4  _modelMatrix, _viewMatrix, _projectionMatrix;
+	mat4  _localModelMatrix, _modelMatrix, _viewMatrix, _projectionMatrix;
 
 	// 紀錄是否有矩陣的更新
 	bool  _updateModel;
@@ -44,14 +45,17 @@ protected:
 	bool  _updateProj;
 	void CreateBufferObject();
 	void SetShaderName(const char vxShaderName[], const char fsShaderName[]);
-	void SetShader(mat4& viewMatrix = View::view, mat4& projectionMatrix = View::projection);
+	//typeName = typeid(TYPE).name()
+	void SetShader(string typeName=typeid(Shape).name(), mat4& viewMatrix = View::view, mat4& projectionMatrix = View::projection);
 	//void SetShader(mat4& viewMatrix = View::view, mat4& projectionMatrix = View::projection, GLuint shaderHandle = MAX_UNSIGNED_INT);
 
 public:
-	Shape();
+	Shape(vec3& position, vec3& rotation = vec3(), vec3& scale = vec3(1.f));
+	Shape(mat4& localModelMatrix = mat4());
 	virtual ~Shape();
 	//virtual void Update(float dt) = 0;
 	//void SetShader(mat4& viewMatrix = mat4(), mat4& projectionMatrix = mat4(), GLuint shaderHandle = MAX_UNSIGNED_INT);
+	void setLocalModelMatrix(mat4& mat);
 	void setModelMatrix(mat4& mat);
 	void setViewMatrix(mat4& mat);
 	void setProjectionMatrix(mat4& mat);

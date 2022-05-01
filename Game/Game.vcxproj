@@ -91,6 +91,7 @@
     <ClCompile Include="Common\Shape.cpp" />
     <ClCompile Include="Common\Text.cpp" />
     <ClCompile Include="Common\Timer.cpp" />
+    <ClCompile Include="Common\Triangle.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="InitShader.cpp" />
     <ClCompile Include="InputUtilities.cpp" />
