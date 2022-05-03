@@ -17,6 +17,6 @@ public:
 	~Quad();
 	void Draw();
 	void drawW();
-	//void Update(float dt);
+	//void SetPosition(float dt);
 
 };

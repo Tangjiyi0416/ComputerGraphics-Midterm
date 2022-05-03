@@ -53,7 +53,7 @@ public:
 	Shape(vec3& position, vec3& rotation = vec3(), vec3& scale = vec3(1.f));
 	Shape(mat4& localModelMatrix = mat4());
 	virtual ~Shape();
-	//virtual void Update(float dt) = 0;
+	//virtual void SetPosition(float dt) = 0;
 	//void SetShader(mat4& viewMatrix = mat4(), mat4& projectionMatrix = mat4(), GLuint shaderHandle = MAX_UNSIGNED_INT);
 	void setLocalModelMatrix(mat4& mat);
 	void setModelMatrix(mat4& mat);

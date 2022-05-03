@@ -39,7 +39,7 @@ void MainGun::Update(float dt) {
 		_curCooldown = _cooldown;
 	}
 	_curCooldown -= dt;
-	//Update bullets
+	//SetPosition bullets
 	ListNode<Bullet*>* curBullet = _bullets.front();
 	while (curBullet != nullptr) {
 		if (curBullet != nullptr) {
@@ -57,7 +57,7 @@ void MainGun::Update(float dt) {
 		}
 	}
 
-	//Update every child
+	//SetPosition every child
 	ListNode<GameObject*>* curChild = _children.front();
 	while (curChild != nullptr) {
 		curChild->data->Update(dt);

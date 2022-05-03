@@ -99,11 +99,13 @@
     <ClCompile Include="LinkList.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Common\IOnHit.h" />
     <ClInclude Include="Common\Lens.h" />
     <ClInclude Include="Common\Bullet.h" />
     <ClInclude Include="Common\Circle.h" />
     <ClInclude Include="Common\Collider.h" />
     <ClInclude Include="Common\GameObject.h" />
+    <ClInclude Include="Common\SimplePhysics.h" />
     <ClInclude Include="Common\Triangle.h" />
     <ClInclude Include="Common\MainGun.h" />
     <ClInclude Include="Common\Player.h" />

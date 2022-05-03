@@ -102,6 +102,12 @@
     <ClInclude Include="Common\Lens.h">
       <Filter>Common\Shapes</Filter>
     </ClInclude>
+    <ClInclude Include="Common\SimplePhysics.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\IOnHit.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="fsShape.glsl">

@@ -1,7 +1,9 @@
 #pragma once
 #include "Shape.h"
-#define LENS_NUM 5
-
+#define LENS_NUM 50
+//resources:
+//	Lens basic: https://mathworld.wolfram.com/Circle-CircleIntersection.html
+//	solve for x(centered radical line): https://www.wolframalpha.com/input?i2d=true&i=Power%5B%5C%2840%29x-c%5C%2841%29%2C2%5D-Power%5B%5C%2840%29x%2Bd%5C%2841%29%2C2%5D%3DPower%5BR%2C2%5D-Power%5Br%2C2%5D
 class Lens :public Shape
 {
 private:
@@ -17,6 +19,6 @@ public:
 	~Lens();
 	void Draw();
 	void drawW();
-	//void Update(float dt);
+	//void SetPosition(float dt);
 
 };

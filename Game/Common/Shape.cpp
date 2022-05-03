@@ -71,6 +71,7 @@ void Shape::SetShader(string typeName, mat4& viewMatrix, mat4& projectionMatrix)
 	glBindBuffer(GL_ARRAY_BUFFER, _buffer);
 	//*
 	string s = typeName;
+
 	if (_shaders.find(s) != _shaders.end()) {
 		_shaderProgram = _shaders[s];
 
@@ -91,7 +92,7 @@ void Shape::SetShader(string typeName, mat4& viewMatrix, mat4& projectionMatrix)
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
-	std::cout << typeName << " " << _shaderProgram << std::endl;
+	//std::cout << typeName << " " << _shaderProgram << std::endl;
 	//*/
 	// Load shaders and use the resulting shader program
 	//_shaderProgram = InitShader(_vxShaderName.c_str(), _fragShaderName.c_str());

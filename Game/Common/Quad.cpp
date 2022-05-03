@@ -78,7 +78,7 @@ void Quad::drawW()
 	glDrawArrays(GL_TRIANGLES, 0, _vxNumber);
 }
 
-//void Quad::Update(float dt) {
+//void Quad::SetPosition(float dt) {
 //
 //}
 /*

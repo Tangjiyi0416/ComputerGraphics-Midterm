@@ -71,7 +71,7 @@ void displayFSP(int ifps)
 	g_strFPS[6] = ifps/10+48;
 	g_strFPS[7] = ifps%10+48;
 	glColor3f(0.5, 0.8, 0.5);
-	drawText(0, ORTHO_WIDTH, g_strFPS);	// 在指定的位置處，顯示指定的字串內容
+	drawText(0, 0, g_strFPS);	// 在指定的位置處，顯示指定的字串內容
 }
 
 //--------------------------------------------------------------------------------

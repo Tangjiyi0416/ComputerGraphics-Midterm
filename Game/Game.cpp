@@ -6,6 +6,7 @@
 #include <iostream>
 #include "Common/Text.h"
 #include "Common/Player.h"
+#include "Common/Collider.h"
 #include <string>
 
 #include "View.h"
@@ -25,6 +26,7 @@ void init() {
 	//std::cout << sizeof(vec4) << std::endl;
 	glClearColor(0.0, 0.0, 0.0, 1.0); // black background
 	InputUtilities::Init();
+	Collider::Init();
 	Text::Init("fonts/arial.ttf", View::projection);
 	// 必須在 glewInit(); 執行完後,在執行物件實體的取得
 	//g_pQuad = new Quad;
@@ -34,7 +36,7 @@ void init() {
 	//g_mxProjection = Ortho(-2.0f, 2.0f, -2.0f, 2.0f, -2.0f, 2.0f);
 	//g_pQuad->SetShader(g_mxModelView, g_mxProjection);
 	g_text1 = new Text("", vec3(255, 0, 0), -SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 48, 1.f);
-	g_player = new Player(nullptr, vec3(), vec3(), vec3(20.f));
+	g_player = new Player(nullptr, vec3(), vec3(), vec3(12.f));
 
 }
 #pragma region DISPLAY

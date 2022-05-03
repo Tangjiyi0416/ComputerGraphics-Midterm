@@ -6,6 +6,8 @@
 #include "Shield.h"
 #include "Bullet.h"
 #include "MainGun.h"
+#include "Collider.h"
+#include <functional>
 class Player :public GameObject
 {
 public:
@@ -15,6 +17,8 @@ public:
 	void Draw();
 private:
 	GLfloat _speed = 180.f;
+	Collider* collider;
+	void Onhit();
 	//Linklist<Bullet*> _bullets;
 };
 Player::Player(GameObject* parent, const vec3& localPosition, const vec3& localRotation, const vec3& localScale)
@@ -22,20 +26,24 @@ Player::Player(GameObject* parent, const vec3& localPosition, const vec3& localR
 {
 	_shapesNumber = 2;
 	_shapes = new Shape * [_shapesNumber];
-	_shapes[0] = new Quad;
 	//vec3 a = vec3(0,1.2071,0);
-	_shapes[1] = new Lens(vec3(),vec3(),vec3(10.f));
-	_shapes[1]->SetColor(vec4(1.0f,0.7f,0.2f,1.0f));
+	_shapes[0] = new Quad(vec3(0, 0, 0), vec3(), vec3(2.f, 5.f, 1.f));
+	_shapes[0]->SetColor(vec4(1.0f, 0.7f, 0.2f, 1.0f));
+	_shapes[1] = new Lens(vec3(0.f, .75f, 0), vec3(), vec3(1.f));
+	_shapes[1]->SetColor(vec4(1.0f, 0.7f, 0.2f, 1.0f));
+
 	for (size_t i = 0; i < _shapesNumber; i++)
 	{
 		_shapes[i]->setModelMatrix(_trs);
 	}
-	_children.pushBack(new Shield(this, vec3(), vec3(), vec3(2.f)));
-	_children.pushBack(new MainGun(this, vec3(0,1.2071f,0), vec3(), vec3(.5f)));
+	_children.pushBack(new Shield(this, vec3(), vec3(), vec3(2.5f)));
+	_children.pushBack(new MainGun(this, vec3(0, 1.2071f, 0), vec3(), vec3(.5f)));
+	collider = new Collider(vec2(0, 0), vec2(2, 5), vec2(localScale.x * 1.f, localScale.y * 1.f), std::bind(&Player::Onhit, this), 0100);
 }
 
 Player::~Player()
 {
+	delete collider;
 }
 void Player::Update(float dt) {
 
@@ -53,15 +61,18 @@ void Player::Update(float dt) {
 	{
 		_shapes[i]->setModelMatrix(_trs);
 	}
-
-	//Update every child
+	collider->SetPosition(localPosition.x, localPosition.y);
+	collider->UpdateRegion();
+	//SetPosition every child
 	ListNode<GameObject*>* curChild = _children.front();
 	while (curChild != nullptr) {
 		curChild->data->Update(dt);
 		curChild = curChild->next();
 	}
 }
-
+void Player::Onhit() {
+	std::cout << "Player was Hit" << std::endl;
+}
 void Player::Draw() {
 	for (size_t i = 0; i < _shapesNumber; i++)
 	{

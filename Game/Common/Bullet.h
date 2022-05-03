@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Circle.h"
+#include "Collider.h"
 class Bullet :public GameObject
 {
 public:

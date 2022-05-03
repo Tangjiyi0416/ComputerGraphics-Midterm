@@ -12,8 +12,8 @@ Lens::Lens(mat4& localModelMatrix)
 }
 
 void Lens::Init() {
-	_radiusLeft = 0.7f;
-	_radiusRight = 0.7f;
+	_radiusLeft = 1.f;
+	_radiusRight = 1.f;
 	_offsetLeft = 0.5f;
 	_offsetRight = 0.5f;
 
@@ -45,13 +45,13 @@ void Lens::Init() {
 	for (size_t i = 0; i < LENS_NUM; i++)
 	{
 		_points[i] = vec4(cos(theta - 2 * i * theta / LENS_NUM) * _radiusLeft - _offsetLeft, sin(theta - 2 * i * theta / LENS_NUM) * _radiusLeft, 0, 1.f);
-		std::cout << _points[i].x << ", " << _points[i].y << std::endl;
+		//std::cout << _points[i].x << ", " << _points[i].y << std::endl;
 
 	}
 	for (size_t i = LENS_NUM; i < _vxNumber; i++)
 	{
 		_points[i] = vec4(-cos(-3 * theta + 2 * i * theta / LENS_NUM) * _radiusRight + _offsetRight, sin(-3 * theta + 2 * i * theta / LENS_NUM) * _radiusRight, 0, 1.f);
-		std::cout << _points[i].x << ", " << _points[i].y << std::endl;
+		//std::cout << _points[i].x << ", " << _points[i].y << std::endl;
 
 	}
 	/*
@@ -113,7 +113,7 @@ void Lens::drawW()
 	glDrawArrays(GL_TRIANGLES, 0, _vxNumber);
 }
 
-//void Lens::Update(float dt) {
+//void Lens::SetPosition(float dt) {
 //
 //}
 /*

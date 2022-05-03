@@ -126,6 +126,7 @@ template <typename T> void Linklist<T> ::clear() {
 		_front = _front->_next;
 		delete cur;
 	}
+	_back = nullptr;
 }
 
 //for CL to work properly, add any type when needed.
@@ -137,3 +138,6 @@ template class Linklist<GameObject*>;
 class Bullet;
 template class ListNode<Bullet*>;
 template class Linklist<Bullet*>;
+class Collider;
+template class ListNode<Collider*>;
+template class Linklist<Collider*>;
