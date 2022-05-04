@@ -6,6 +6,7 @@
 #include <iostream>
 #include "Common/Text.h"
 #include "Common/Player.h"
+#include "Common/Enemy1.h"
 #include "Common/Collider.h"
 #include <string>
 
@@ -19,6 +20,7 @@ void SetVSync(bool);
 // 必須在 glewInit(); 執行完後,在執行物件實體的取得
 //Quad* g_pQuad;	// 宣告 Quad 指標物件，結束時記得釋放
 Player* g_player;
+Enemy1** g_enemy;
 Text* g_text1;
 
 // For Model View and Projection Matrix
@@ -37,7 +39,11 @@ void init() {
 	//g_pQuad->SetShader(g_mxModelView, g_mxProjection);
 	g_text1 = new Text("", vec3(255, 0, 0), -SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 48, 1.f);
 	g_player = new Player(nullptr, vec3(), vec3(), vec3(12.f));
-
+	g_enemy = new Enemy1 * [20];
+	for (size_t i = 0; i < 20; i++)
+	{
+		g_enemy[i] = new Enemy1(nullptr, vec3(0, 150, 0), vec3(), vec3(12.f));
+	}
 }
 #pragma region DISPLAY
 
@@ -47,6 +53,10 @@ void GL_Display(void)
 	glClear(GL_COLOR_BUFFER_BIT); // clear the window
 	//g_pQuad->Draw();
 	g_player->Draw();
+	for (size_t i = 0; i < 20; i++)
+	{
+		g_enemy[i]->Draw();
+	}
 	g_text1->Draw();
 	//Draw(g_textShader, "This is sample text", -100.f, 200.f, 1.f, vec3(0.5, 0.8f, 0.2f));
 	//Draw(g_textShader, "(C) LearnOpenGL.com", -100.f, 0.f, 1.f, vec3(0.3, 0.7f, 0.9f));
@@ -65,6 +75,11 @@ void onFrameMove(float delta)
 		glutLeaveMainLoop();
 	}
 	g_player->Update(delta);
+	for (size_t i = 0; i < 20; i++)
+	{
+		g_enemy[i]->Update(delta);
+	}
+	Collider::FrameUpdate();
 	int mouseX = 0, mouseY = 0;
 	InputUtilities::GetMousePosition(mouseX, mouseY);
 	//std::cout << "Mouse: " + std::to_string( mouseX) +" " + std::to_string(mouseY) << std::endl;
@@ -100,7 +115,11 @@ int main(int argc, char** argv)
 	//delete g_pQuad;
 	delete g_text1;
 	delete g_player;
-
+	for (size_t i = 0; i < 20; i++)
+	{
+		delete g_enemy[i];
+	}
+	delete[] g_enemy;
 	std::cout << "Game Process terminated.";
 	return 0;
 }

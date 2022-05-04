@@ -8,20 +8,20 @@
 #include "MainGun.h"
 #include "Collider.h"
 #include <functional>
-class Player :public GameObject
+class Enemy1 :public GameObject
 {
 public:
-	Player(GameObject* parent = nullptr, const vec3& localPosition = vec3(), const vec3& localRotation = vec3(), const vec3& localScale = vec3(1.f));
-	~Player();
+	Enemy1(GameObject* parent = nullptr, const vec3& localPosition = vec3(), const vec3& localRotation = vec3(), const vec3& localScale = vec3(1.f));
+	~Enemy1();
 	void Update(float dt);
 	void Draw();
 private:
 	GLfloat _speed = 180.f;
 	Collider* collider;
-	void Onhit(const Collider&);
+	void Onhit();
 	//Linklist<Bullet*> _bullets;
 };
-Player::Player(GameObject* parent, const vec3& localPosition, const vec3& localRotation, const vec3& localScale)
+Enemy1::Enemy1(GameObject* parent, const vec3& localPosition, const vec3& localRotation, const vec3& localScale)
 	:GameObject{ parent, localPosition, localRotation, localScale }
 {
 	_shapesNumber = 2;
@@ -38,21 +38,21 @@ Player::Player(GameObject* parent, const vec3& localPosition, const vec3& localR
 	}
 	_children.pushBack(new Shield(this, vec3(), vec3(), vec3(2.5f)));
 	_children.pushBack(new MainGun(this, vec3(0, 1.2071f, 0), vec3(), vec3(.5f)));
-	collider = new Collider(vec2(0, 0), vec2(2, 5), vec2(localScale.x * 1.f, localScale.y * 1.f), std::bind(&Player::Onhit, this,std::placeholders::_1), 0b100);
+	collider = new Collider(vec2(0, 0), vec2(2, 5), vec2(localScale.x * 1.f, localScale.y * 1.f), std::bind(&Enemy1::Onhit, this), 0b1);
 }
 
-Player::~Player()
+Enemy1::~Enemy1()
 {
 	delete collider;
 }
-void Player::Update(float dt) {
+void Enemy1::Update(float dt) {
 
 	//Handle movement
 	vec3 _direction;
-	if (InputUtilities::GetKeyState('d') || InputUtilities::GetKeyState('D'))_direction.x += 1;
-	if (InputUtilities::GetKeyState('a') || InputUtilities::GetKeyState('A'))_direction.x -= 1;
-	if (InputUtilities::GetKeyState('w') || InputUtilities::GetKeyState('W'))_direction.y += 1;
-	if (InputUtilities::GetKeyState('s') || InputUtilities::GetKeyState('S'))_direction.y -= 1;
+	if (InputUtilities::GetKeyState(GLUT_KEY_RIGHT, true))_direction.x += 1;
+	if (InputUtilities::GetKeyState(GLUT_KEY_LEFT, true))_direction.x -= 1;
+	if (InputUtilities::GetKeyState(GLUT_KEY_UP, true))_direction.y += 1;
+	if (InputUtilities::GetKeyState(GLUT_KEY_DOWN, true))_direction.y -= 1;
 	normalize(_direction);
 	_direction *= dt * _speed;
 	localPosition += _direction;
@@ -70,10 +70,10 @@ void Player::Update(float dt) {
 		curChild = curChild->next();
 	}
 }
-void Player::Onhit(const Collider& other) {
-	//std::cout << "Player was Hit" << std::endl;
+void Enemy1::Onhit() {
+	//std::cout << "Enemy1 was Hit" << std::endl;
 }
-void Player::Draw() {
+void Enemy1::Draw() {
 	for (size_t i = 0; i < _shapesNumber; i++)
 	{
 		_shapes[i]->Draw();

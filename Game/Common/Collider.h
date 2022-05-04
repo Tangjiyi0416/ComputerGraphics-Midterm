@@ -3,7 +3,9 @@
 #include "../LinkList.h"
 #include "../View.h"
 #include <functional>
-#define REGION 9
+#include <set>
+#define REGION_V 4
+#define REGION_H 4
 //This is bad, but it works! kinda...
 //resources:
 //	AABB: https://davidhsu666.com/archives/gamecollisiondetection/#sat%E7%9A%84%E7%B8%BD%E7%B5%90
@@ -23,7 +25,11 @@ struct CollisionRegion {
 class Collider
 {
 private:
-	static CollisionRegion regions[REGION];
+	static CollisionRegion regions[REGION_V * REGION_H];
+	GLushort _curRegion;
+	//HACKY: colliders that may collide with this multiple times
+	std::set<Collider*> _multiCollided;
+
 	vec4 _boundingBox;
 	vec2 _size;
 	vec2 _scale;
@@ -31,7 +37,7 @@ private:
 	//vec4* _points;
 	GLubyte _layer;
 	//onhit
-	typedef std::function<void()> Callback;
+	typedef std::function<void(const Collider&)> Callback;
 	Callback _onHit;
 public:
 	void UpdateRegion();
@@ -56,7 +62,8 @@ public:
 
 Collider::Collider(vec2 localPosition, vec2 size, vec2 scale, Callback onHitFunction, GLubyte mask) :
 	_onHit{ onHitFunction },
-	_layer{ mask }
+	_layer{ mask },
+	_curRegion{ 0 }
 {
 	SetPosition(localPosition);
 	SetSize(size);
@@ -68,23 +75,41 @@ Collider::~Collider()
 {
 }
 void Collider::UpdateRegion() {
-	for (size_t i = 0; i < REGION; i++)
+	_curRegion = 0;
+	_multiCollided.clear();
+	for (size_t i = 0; i < REGION_V * REGION_H; i++)
 	{
 		if (CheckHit(_boundingBox, regions[i]._boundingBox)) {
-			if (_layer & 1) regions[i]._enemys.pushBack(this);
-			if (_layer & 2) regions[i]._enemyBullets.pushBack(this);
-			if (_layer & 4) regions[i]._player.pushBack(this);
-			if (_layer & 8) regions[i]._playerBullets.pushBack(this);
+			//std::cout << "in region: " << i << std::endl;
+			_curRegion += 1 << i;
+			if (_layer & 1) {
+				regions[i]._enemys.pushBack(this);
+				//std::cout << "to enemy in region: " << i << std::endl;
+			}
+			if (_layer & 2) {
+				regions[i]._enemyBullets.pushBack(this);
+				//std::cout << "to enemyBullets in region: " << i << std::endl;
+			}
+			if (_layer & 4) {
+				regions[i]._player.pushBack(this);
+				//std::cout << "to player in region: " << i << std::endl;
+			}
+			if (_layer & 8) {
+				regions[i]._playerBullets.pushBack(this);
+				//std::cout << "to playerBullets in region: " << i << std::endl;
+			}
 		}
 	}
 }
 void Collider::SetPosition(const vec2& colliderPosition) {
 	_boundingBox.x = colliderPosition.x;
 	_boundingBox.y = colliderPosition.y;
+
 }
 void Collider::SetPosition(GLfloat x, GLfloat y) {
 	_boundingBox.x = x;
 	_boundingBox.y = y;
+	//std::cout << _boundingBox.x << "," << _boundingBox.y << std::endl;
 }
 
 void Collider::SetSize(const vec2& colliderSize) {
@@ -112,16 +137,20 @@ void Collider::SetScale(GLfloat x, GLfloat y) {
 	_boundingBox.w = _size.y * _scale.y;
 }
 
-CollisionRegion Collider::regions[9] = {};
+CollisionRegion Collider::regions[REGION_V * REGION_H] = {};
 void Collider::Init() {
-	for (size_t i = 0; i < REGION; i++)
+	for (size_t i = 0; i < REGION_V; i++)
 	{
-		regions[i]._boundingBox = {
-			(i % 3) * SCREEN_WIDTH / 3.f
-			, (i / 3) * SCREEN_HEIGHT / 3.f
-			, SCREEN_WIDTH / 3.f
-			, SCREEN_HEIGHT / 3.f
-		};
+		for (size_t j = 0; j < REGION_H; j++)
+		{
+
+			regions[i * REGION_V + j]._boundingBox = {
+				j * SCREEN_WIDTH / REGION_H + SCREEN_WIDTH / (REGION_H * 2.f) - SCREEN_WIDTH / 2.f
+				, i * SCREEN_HEIGHT / REGION_V + SCREEN_HEIGHT / (REGION_V * 2.f) - SCREEN_HEIGHT / 2.f
+				, SCREEN_WIDTH / REGION_H
+				, SCREEN_HEIGHT / REGION_V
+			};
+		}
 
 	}
 }
@@ -145,7 +174,7 @@ bool Collider::CheckHit(const vec4& first, const vec4& other) {
 }
 
 void Collider::FrameUpdate() {
-	for (size_t i = 0; i < REGION; i++)
+	for (size_t i = 0; i < REGION_V * REGION_H; i++)
 	{
 		ListNode<Collider*>* cur;
 
@@ -155,37 +184,52 @@ void Collider::FrameUpdate() {
 			ListNode<Collider*>* cur2 = regions[i]._playerBullets.front();
 			while (cur2 != nullptr)
 			{
-				if (CheckHit(*(cur->data), *(cur2->data))) {
-					cur->data->_onHit();
-					cur2->data->_onHit();
+				std::set<Collider*>& curSet = cur->data->_multiCollided;
+				if (curSet.find(cur2->data) == curSet.end() && CheckHit(*(cur->data), *(cur2->data))) {
+					if ((cur->data->_curRegion & cur2->data->_curRegion) != 1 << i) {
+						cur->data->_multiCollided.insert(cur2->data);
+					}
+					cur->data->_onHit(*(cur2->data));
+					cur2->data->_onHit(*(cur->data));
+					//std::cout << "in region: " << i << std::endl;
 				}
 				cur2 = cur2->next();
 			}
 			cur = cur->next();
 		}
-		//enemy aganist player
-		cur = regions[i]._enemys.front();
+		//player aganist enemy
+		cur = regions[i]._player.front();
 		while (cur != nullptr) {
-			ListNode<Collider*>* cur2 = regions[i]._player.front();
+			ListNode<Collider*>* cur2 = regions[i]._enemys.front();
 			while (cur2 != nullptr)
 			{
-				if (CheckHit(*(cur->data), *(cur2->data))) {
-					cur->data->_onHit();
-					cur2->data->_onHit();
+				std::set<Collider*>& curSet = cur->data->_multiCollided;
+				if (curSet.find(cur2->data) == curSet.end() && CheckHit(*(cur->data), *(cur2->data))) {
+					if ((cur->data->_curRegion & cur2->data->_curRegion) != 1 << i) {
+						cur->data->_multiCollided.insert(cur2->data);
+					}
+					cur->data->_onHit(*(cur2->data));
+					cur2->data->_onHit(*(cur->data));
+					//std::cout << "in region: " << i << std::endl;
 				}
 				cur2 = cur2->next();
 			}
 			cur = cur->next();
 		}
-		//enemyBullet aganist player
-		cur = regions[i]._enemyBullets.front();
+		//player aganist enemyBullet
+		cur = regions[i]._player.front();
 		while (cur != nullptr) {
-			ListNode<Collider*>* cur2 = regions[i]._player.front();
+			ListNode<Collider*>* cur2 = regions[i]._enemyBullets.front();
 			while (cur2 != nullptr)
 			{
-				if (CheckHit(*(cur->data), *(cur2->data))) {
-					cur->data->_onHit();
-					cur2->data->_onHit();
+				std::set<Collider*>& curSet = cur->data->_multiCollided;
+				if (curSet.find(cur2->data) == curSet.end() && CheckHit(*(cur->data), *(cur2->data))) {
+					if ((cur->data->_curRegion & cur2->data->_curRegion) != 1 << i) {
+						cur->data->_multiCollided.insert(cur2->data);
+					}
+					cur->data->_onHit(*(cur2->data));
+					cur2->data->_onHit(*(cur->data));
+					//std::cout << "in region: " << i << std::endl;
 				}
 				cur2 = cur2->next();
 			}
