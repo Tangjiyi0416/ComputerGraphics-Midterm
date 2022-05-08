@@ -48,9 +48,8 @@ void init() {
 	//  產生 projection 矩陣，此處為產生正投影矩陣
 	//g_mxProjection = Ortho(-2.0f, 2.0f, -2.0f, 2.0f, -2.0f, 2.0f);
 	//g_pQuad->SetShader(g_mxModelView, g_mxProjection);
-	g_text1 = new Text("", vec3(0.6f, 0.8f, 0.8f), -SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 48, 1.f);
+	g_text1 = new Text("", vec3(0.6f, 0.8f, 0.8f), -SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 48, 0.7f);
 	g_worldObjects.pushBack(Player::GetInstance());
-	g_worldObjects.pushBack(new Boss0(nullptr, vec3(0, SCREEN_HEIGHT / 2 - 20, 0), vec3(), vec3(12.f)));
 	srand(time(NULL));
 	for (size_t i = 0; i < STAR_NUMBER; i++)
 	{
@@ -74,23 +73,28 @@ void BackgroundEffect(float delta) {
 	}
 }
 float g_spawnCD = 0;
+bool g_bossSpawned = false;
 void WaveSpawn(float delta) {
-	if (g_spawnCD >= 1) {
+	if (g_spawnCD >= 2) {
 		int s = rand() % 100;
-		//if (s < 40) {
-		//	g_worldObjects.pushBack(new Big(nullptr, vec3(rand() % (SCREEN_WIDTH-20) - (SCREEN_WIDTH-20) / 2, SCREEN_HEIGHT, 0), vec3(), vec3(12.f)));
-		//}
-		//else if (s < 80) {
-		//	g_worldObjects.pushBack(new Small(nullptr, vec3(rand() % (SCREEN_WIDTH - 20) - (SCREEN_WIDTH - 20) / 2, SCREEN_HEIGHT, 0), vec3(), vec3(12.f)));
+		if (s < 30) {
+			g_worldObjects.pushBack(new Big(nullptr, vec3(rand() % (SCREEN_WIDTH - 60) - (SCREEN_WIDTH - 60) / 2, SCREEN_HEIGHT - 200, 0), vec3(), vec3(16.f)));
+		}
+		else if (s < 80) {
+			g_worldObjects.pushBack(new Small(nullptr, vec3(rand() % (SCREEN_WIDTH - 60) - (SCREEN_WIDTH - 60) / 2, SCREEN_HEIGHT - 200, 0), vec3(), vec3(14.f)));
 
-		//}
-		//else {
-		g_worldObjects.pushBack(new Sentinel(nullptr, vec3(rand() % (SCREEN_WIDTH - 20) - (SCREEN_WIDTH - 20) / 2, SCREEN_HEIGHT, 0), vec3(), vec3(12.f)));
+		}
+		else {
+			g_worldObjects.pushBack(new Sentinel(nullptr, vec3(rand() % (SCREEN_WIDTH - 60) - (SCREEN_WIDTH - 60) / 2, SCREEN_HEIGHT - 200, 0), vec3(), vec3(12.f)));
 
-		//}
-		g_spawnCD -= 1;
+		}
+		g_spawnCD -= 2;
 	}
 	g_spawnCD += delta;
+	if (!g_bossSpawned && Player::GetInstance()->GetExp() >= 100) {
+		g_worldObjects.pushBack(new Boss0(nullptr, vec3(0, 200, 0), vec3(), vec3(12.f)));
+		g_bossSpawned = true;
+	}
 }
 
 #pragma region DISPLAY
@@ -127,14 +131,31 @@ extern void IdleProcess();
 //slowmotion
 bool g_slow = false;
 bool g_lastQState = false;
+//highspeed
+bool g_highSpeed = false;
+bool g_lastEState = false;
 void onFrameMove(float delta)
 {
 	//slowmotion
 	if (InputUtilities::GetKeyState('q') && InputUtilities::GetKeyState('q') != g_lastQState) {
 		g_slow = !g_slow;
+		if (g_slow) {
+			Player::GetInstance()->SetColor(vec4(0.3, 0.3, 1.f, 1.f));
+		}
+		else {
+			Player::GetInstance()->SetColor(vec4(1.f));
+
+		}
 	}
 	g_lastQState = InputUtilities::GetKeyState('q');
 	if (g_slow)delta /= 2;
+
+	//slowmotion
+	if (InputUtilities::GetKeyState('e') && InputUtilities::GetKeyState('e') != g_lastEState) {
+		g_highSpeed = !g_highSpeed;
+	}
+	g_lastEState = InputUtilities::GetKeyState('e');
+	if (g_highSpeed)delta *= 4;
 
 	//exit
 	if (InputUtilities::GetKeyState(27)) {

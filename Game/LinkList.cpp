@@ -147,3 +147,6 @@ template class Linklist<TimedTextManager::TimedTextObject*>;
 class Shape;
 template class ListNode<Shape*>;
 template class Linklist<Shape*>;
+class MainGun;
+template class ListNode<MainGun*>;
+template class Linklist<MainGun*>;

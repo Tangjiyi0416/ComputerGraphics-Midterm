@@ -17,9 +17,7 @@ public:
 	void Update(float dt);
 	void Draw();
 private:
-	GLfloat _speed = 100.f;
-	GLfloat _cooldown = .1f;
+	GLfloat _cooldown = .2f;
 	GLfloat _curCooldown = 0.f;
 	Faction _faction;
-	vec3 _direction;
 };

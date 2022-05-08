@@ -14,8 +14,9 @@ BulletManager::~BulletManager() {
 	while (_bullets.front() != nullptr) delete _bullets.front()->data, _bullets.popFront();
 
 }
-void BulletManager::SpawnBullet(Faction faction,vec3 direction, vec3 position, vec3 rotation, vec3 scale) {
-	_bullets.pushBack(new Bullet(faction,direction, nullptr, position, rotation, scale));
+void BulletManager::SpawnBullet(Faction faction, vec3 direction, vec3 position, vec3 rotation, vec3 scale, int damage) {
+	_bullets.pushBack(new Bullet(faction, direction, nullptr, position, rotation, scale));
+	_bullets.back()->data->SetDamage(damage);
 	//std::cout << "position: " << position.x << " " << position.y << std::endl;
 
 }

@@ -14,7 +14,7 @@ MainGun::MainGun(Faction faction, GameObject* parent, const vec3& localPosition,
 		_shapes[i]->setModelMatrix(_trs);
 	}
 
-	_direction= faction == Faction::Player ? vec3(0,1,0) : vec3(0,-1,0);
+	_direction = faction == Faction::Player ? vec3(0, 1, 0) : vec3(0, -1, 0);
 }
 
 MainGun::~MainGun()
@@ -22,10 +22,10 @@ MainGun::~MainGun()
 }
 bool MainGun::Shoot()
 {
-	if ( _curCooldown <= 0) {
+	if (_curCooldown <= 0) {
 		//std::cout << "gun faction:" << (int)_faction << std::endl;
 
-		BulletManager::GetInstance()->SpawnBullet(_faction,_direction, ToWorld(localPosition));
+		BulletManager::GetInstance()->SpawnBullet(_faction, _direction, ToWorld(localPosition), _faction == Faction::Player ? Player::GetInstance()->damage : 1);
 		_curCooldown = _cooldown;
 		return true;
 	}

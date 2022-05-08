@@ -14,6 +14,8 @@ public:
 	~Bullet();
 	void Update(float dt);
 	void Draw();
+	//ugly
+	void SetDamage(GLint damage);
 private:
 	Faction _faction;
 	void Onhit(const Collider& other);

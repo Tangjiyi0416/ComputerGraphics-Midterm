@@ -5,6 +5,7 @@
 #include "../InputUtilities.h"
 #include "../LinkList.h"
 #include "BulletManager.h"
+#include "Player.h"
 class MainGun :public GameObject
 {
 public:
@@ -14,7 +15,6 @@ public:
 	void Update(float dt);
 	void Draw();
 private:
-	GLfloat _speed = 100.f;
 	GLfloat _cooldown = .1f;
 	GLfloat _curCooldown = 0.f;
 	Faction _faction;

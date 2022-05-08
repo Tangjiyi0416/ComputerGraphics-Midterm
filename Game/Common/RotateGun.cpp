@@ -1,7 +1,7 @@
 #include "RotateGun.h"
 
 RotateGun::RotateGun(GameObject* parent, const vec3& localPosition, const vec3& localRotation, const vec3& localScale)
-	:_faction{ Faction::Enemy }, _direction{ vec3(0,-1,0) }, GameObject{
+	:_faction{ Faction::Enemy }, GameObject{
 	parent, localPosition, localRotation, localScale
 }
 {
@@ -22,8 +22,10 @@ RotateGun::~RotateGun()
 bool RotateGun::Shoot()
 {
 	if (_curCooldown <= 0) {
-		//std::cout << "gun faction:" << (int)_faction << std::endl;
-
+		vec3 _direction = Player::GetInstance()->localPosition - ToWorld(localPosition);
+		vec2 v = normalize(vec2(_direction.x, _direction.y));
+		_direction = vec3(v.x, v.y, 0);
+		//std::cout << v.x <<" "<< v.y << std::endl;
 		BulletManager::GetInstance()->SpawnBullet(_faction, _direction, ToWorld(localPosition));
 		_curCooldown = _cooldown;
 		return true;
@@ -36,9 +38,7 @@ void RotateGun::Update(float dt) {
 	{
 		_shapes[i]->setModelMatrix(_trs);
 	}
-	_direction = Player::GetInstance()->localPosition - ToWorld(localPosition);
-	vec2 v = normalize(vec2(_direction.x, _direction.y));
-	_direction = vec3(v.x, v.y, 0);
+
 	_curCooldown -= dt;
 }
 
