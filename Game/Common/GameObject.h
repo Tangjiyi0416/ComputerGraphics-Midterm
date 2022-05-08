@@ -14,13 +14,14 @@ public:
 	vec3 localScale;
 	vec3 ToWorld(vec3 vector) {
 		vec4 v4(vector);
-		if (parent != nullptr)
-			v4 = parent->_trs * v4;
+		v4 = parent->_trs * v4;
 		return vec3(v4.x, v4.y, v4.z);
 	}
 	GameObject* parent;
 	virtual void Draw() = 0;
+	bool isDisabled()const { return _disabled; }
 protected:
+	bool _disabled = false;
 	void UpdateTRSMatrix();
 	size_t _shapesNumber;
 	Shape** _shapes;

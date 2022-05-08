@@ -44,14 +44,15 @@ namespace InputUtilities {
 			//std::cout << mousePosition[0] << ' ' << mousePosition[1] << std::endl;
 		}
 		void Win_KeyboardDown(unsigned char key, int x, int y) {
+
 			_keyState[key] = true;
 		}
 		void Win_KeyboardUp(unsigned char key, int x, int y) {
 			_keyState[key] = false;
 		}
 		int GetSpecialKeyIndex(int specialKey) {
-			if (specialKey > 0 && specialKey < 13) return specialKey = 127 + specialKey;
-			else if (specialKey > 99 && specialKey < 109) return specialKey = 40 + specialKey;
+			if (specialKey > 0 && specialKey < 13) return  127 + specialKey;
+			else if (specialKey > 99 && specialKey < 109) return  40 + specialKey;
 			else return -1;
 		}
 		void Win_SpecialKeyboardDown(int key, int x, int y) {

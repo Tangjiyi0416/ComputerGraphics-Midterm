@@ -15,9 +15,9 @@ Triangle::Triangle(mat4& localModelMatrix)
 void Triangle::Init() {
 	_vxNumber = TRIANGLE_NUM;
 	_points = new vec4[_vxNumber];
-	_points[0] = vec4(0.0f, 0.5f, 0.0f, 1.0f);
-	_points[1] = vec4(-0.7071f, -0.7071f, 0.0f, 1.0f);
-	_points[2] = vec4(0.7071f, -0.7071f, 0.0f, 1.0f);
+	_points[0] = vec4(0.0f, 0.3f, 0.0f, 1.0f);
+	_points[1] = vec4(-0.5f, -0.566f, 0.0f, 1.0f);
+	_points[2] = vec4(0.5f, -0.566f, 0.0f, 1.0f);
 
 	_colors = new vec4[_vxNumber];
 	_colors[0] = vec4(1.0f, 0.0f, 0.0f, 1.0f);

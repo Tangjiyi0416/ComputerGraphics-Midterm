@@ -126,8 +126,8 @@ void Text::Draw()
 
 	// OpenGL state
 	// ------------
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	//glEnable(GL_BLEND);
+	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_CULL_FACE);
 
 	// activate corresponding render state	
@@ -175,6 +175,6 @@ void Text::Draw()
 	glBindTexture(GL_TEXTURE_2D, 0);//IDK what this does, same as above i guess?
 
 	// OpenGL state, the guide didn't tell me to do this, but I do seen others disable the rules after they finished the task.
-	glDisable(GL_BLEND);
+	//glDisable(GL_BLEND);
 	glDisable(GL_CULL_FACE);
 }

@@ -1,14 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Common\common.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Common\GameObject.cpp">
-      <Filter>Common</Filter>
     </ClCompile>
     <ClCompile Include="InitShader.cpp">
       <Filter>Source</Filter>
@@ -40,11 +34,65 @@
     <ClCompile Include="Common\Lens.cpp">
       <Filter>Common\Shapes</Filter>
     </ClCompile>
+    <ClCompile Include="Common\TimedTextManager.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\MainGun.cpp">
+      <Filter>Common\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\Bullet.cpp">
+      <Filter>Common\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\Collider.cpp">
+      <Filter>Common\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\GameObject.cpp">
+      <Filter>Common\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\Player.cpp">
+      <Filter>Common\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\Shield.cpp">
+      <Filter>Common\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\Star.cpp">
+      <Filter>Common\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\common.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\BulletManger.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\StarShape.cpp">
+      <Filter>Common\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\Enemy.cpp">
+      <Filter>Common\GameObjects\Enemys</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\Big.cpp">
+      <Filter>Common\GameObjects\Enemys</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\Small.cpp">
+      <Filter>Common\GameObjects\Enemys</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\Boss0.cpp">
+      <Filter>Common\GameObjects\Enemys</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\Boss1.cpp">
+      <Filter>Common\GameObjects\Enemys</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\Boss2.cpp">
+      <Filter>Common\GameObjects\Enemys</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\Sentinel.cpp">
+      <Filter>Common\GameObjects\Enemys</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\RotateGun.cpp">
+      <Filter>Common\Weapon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Common\Bullet.h">
-      <Filter>Common</Filter>
-    </ClInclude>
     <ClInclude Include="Header\Angel.h">
       <Filter>Header</Filter>
     </ClInclude>
@@ -54,12 +102,6 @@
     <ClInclude Include="Header\CheckError.h">
       <Filter>Header</Filter>
     </ClInclude>
-    <ClInclude Include="Common\Collider.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="Common\GameObject.h">
-      <Filter>Common</Filter>
-    </ClInclude>
     <ClInclude Include="InputUtilities.h">
       <Filter>Source\Utilities</Filter>
     </ClInclude>
@@ -68,12 +110,6 @@
     </ClInclude>
     <ClInclude Include="Header\mat.h">
       <Filter>Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Common\Player.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="Common\Shield.h">
-      <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="Common\Text.h">
       <Filter>Common</Filter>
@@ -102,11 +138,59 @@
     <ClInclude Include="Common\Lens.h">
       <Filter>Common\Shapes</Filter>
     </ClInclude>
-    <ClInclude Include="Common\SimplePhysics.h">
+    <ClInclude Include="Common\TimedTextManager.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="Common\IOnHit.h">
+    <ClInclude Include="Common\Bullet.h">
+      <Filter>Common\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Collider.h">
+      <Filter>Common\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\GameObject.h">
+      <Filter>Common\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Player.h">
+      <Filter>Common\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Shield.h">
+      <Filter>Common\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Star.h">
+      <Filter>Common\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\ICanTakeDamage.h">
       <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\BulletManager.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\StarShape.h">
+      <Filter>Common\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Enemy.h">
+      <Filter>Common\GameObjects\Enemys</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Big.h">
+      <Filter>Common\GameObjects\Enemys</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Small.h">
+      <Filter>Common\GameObjects\Enemys</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Boss0.h">
+      <Filter>Common\GameObjects\Enemys</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Boss1.h">
+      <Filter>Common\GameObjects\Enemys</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Boss2.h">
+      <Filter>Common\GameObjects\Enemys</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Sentinel.h">
+      <Filter>Common\GameObjects\Enemys</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\RotateGun.h">
+      <Filter>Common\Weapon</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +228,12 @@
     </Filter>
     <Filter Include="Common\Shapes">
       <UniqueIdentifier>{f28e031f-0494-4a48-9190-86f0abd297d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\GameObjects">
+      <UniqueIdentifier>{0d9384cc-2bc6-4d20-949b-5177ce02dbf1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\GameObjects\Enemys">
+      <UniqueIdentifier>{2655ee1b-7026-4b96-99a5-212750a54938}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

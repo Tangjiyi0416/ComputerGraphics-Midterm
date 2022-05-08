@@ -84,13 +84,30 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Common\Big.cpp" />
+    <ClCompile Include="Common\Boss0.cpp" />
+    <ClCompile Include="Common\Boss1.cpp" />
+    <ClCompile Include="Common\Boss2.cpp" />
+    <ClCompile Include="Common\Bullet.cpp" />
+    <ClCompile Include="Common\BulletManger.cpp" />
+    <ClCompile Include="Common\Collider.cpp" />
+    <ClCompile Include="Common\Enemy.cpp" />
     <ClCompile Include="Common\Lens.cpp" />
     <ClCompile Include="Common\Circle.cpp" />
     <ClCompile Include="Common\common.cpp" />
     <ClCompile Include="Common\GameObject.cpp" />
+    <ClCompile Include="Common\MainGun.cpp" />
+    <ClCompile Include="Common\Player.cpp" />
     <ClCompile Include="Common\Quad.cpp" />
+    <ClCompile Include="Common\RotateGun.cpp" />
+    <ClCompile Include="Common\Sentinel.cpp" />
     <ClCompile Include="Common\Shape.cpp" />
+    <ClCompile Include="Common\Shield.cpp" />
+    <ClCompile Include="Common\Small.cpp" />
+    <ClCompile Include="Common\Star.cpp" />
+    <ClCompile Include="Common\StarShape.cpp" />
     <ClCompile Include="Common\Text.cpp" />
+    <ClCompile Include="Common\TimedTextManager.cpp" />
     <ClCompile Include="Common\Timer.cpp" />
     <ClCompile Include="Common\Triangle.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -99,13 +116,24 @@
     <ClCompile Include="LinkList.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Common\IOnHit.h" />
+    <ClInclude Include="Common\Big.h" />
+    <ClInclude Include="Common\Boss0.h" />
+    <ClInclude Include="Common\Boss1.h" />
+    <ClInclude Include="Common\Boss2.h" />
+    <ClInclude Include="Common\BulletManager.h" />
+    <ClInclude Include="Common\Enemy.h" />
+    <ClInclude Include="Common\ICanTakeDamage.h" />
     <ClInclude Include="Common\Lens.h" />
     <ClInclude Include="Common\Bullet.h" />
     <ClInclude Include="Common\Circle.h" />
     <ClInclude Include="Common\Collider.h" />
     <ClInclude Include="Common\GameObject.h" />
-    <ClInclude Include="Common\SimplePhysics.h" />
+    <ClInclude Include="Common\RotateGun.h" />
+    <ClInclude Include="Common\Sentinel.h" />
+    <ClInclude Include="Common\Small.h" />
+    <ClInclude Include="Common\Star.h" />
+    <ClInclude Include="Common\StarShape.h" />
+    <ClInclude Include="Common\TimedTextManager.h" />
     <ClInclude Include="Common\Triangle.h" />
     <ClInclude Include="Common\MainGun.h" />
     <ClInclude Include="Common\Player.h" />

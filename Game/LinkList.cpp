@@ -141,3 +141,9 @@ template class Linklist<Bullet*>;
 class Collider;
 template class ListNode<Collider*>;
 template class Linklist<Collider*>;
+#include "Common/TimedTextManager.h"
+template class ListNode<TimedTextManager::TimedTextObject*>;
+template class Linklist<TimedTextManager::TimedTextObject*>;
+class Shape;
+template class ListNode<Shape*>;
+template class Linklist<Shape*>;

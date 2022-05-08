@@ -5,11 +5,14 @@
 #include "../InputUtilities.h"
 #include "../LinkList.h"
 #include "BulletManager.h"
-class MainGun :public GameObject
+#include "Player.h"
+
+//temp implement
+class RotateGun :public GameObject
 {
 public:
-	MainGun(Faction faction, GameObject* parent = nullptr, const vec3& localPosition = vec3(), const vec3& localRotation = vec3(), const vec3& localScale = vec3(.5f));
-	~MainGun();
+	RotateGun( GameObject* parent = nullptr, const vec3& localPosition = vec3(), const vec3& localRotation = vec3(), const vec3& localScale = vec3(.5f));
+	~RotateGun();
 	bool Shoot();
 	void Update(float dt);
 	void Draw();
