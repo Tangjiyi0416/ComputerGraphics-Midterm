@@ -20,7 +20,6 @@ void Enemy::Update(float dt) {
 	}
 	Move(dt);
 	UpdateTRSMatrix();
-	Attack(dt);
 	for (size_t i = 0; i < _shapesNumber; i++)
 	{
 		_shapes[i]->setModelMatrix(_trs);
@@ -39,6 +38,7 @@ void Enemy::Update(float dt) {
 		curChild->data->Update(dt);
 		curChild = curChild->next();
 	}
+	Attack(dt);
 }
 void Enemy::Onhit(const Collider& other) {
 	std::cout << "Enemy was Hit" << std::endl;
@@ -56,11 +56,15 @@ void Enemy::Move(GLfloat dt)
 void Enemy::Attack(GLfloat dt)
 {
 }
+void Enemy::OnKilled()
+{
+}
 void Enemy::TakeDamage(int damage) {
 	std::cout << "I Take: " << damage << std::endl;
 	_health -= damage;
 	if (_health <= 0) {
 		Player::GetInstance()->AddExp(_exp);
+		OnKilled();
 		_disabled = true;
 	}
 }

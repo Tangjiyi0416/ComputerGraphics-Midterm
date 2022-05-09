@@ -14,12 +14,15 @@ public:
 	vec3 localScale;
 	vec3 ToWorld(vec3 vector) {
 		vec4 v4(vector);
-		v4 = parent->_trs * v4;
+		if (parent != nullptr)
+			v4 = parent->_trs * v4;
 		return vec3(v4.x, v4.y, v4.z);
 	}
+	void MoveObjectToWorld();
 	GameObject* parent;
 	virtual void Draw() = 0;
 	bool isDisabled()const { return _disabled; }
+	static Linklist<GameObject*> g_worldObjects;
 protected:
 	bool _disabled = false;
 	void UpdateTRSMatrix();

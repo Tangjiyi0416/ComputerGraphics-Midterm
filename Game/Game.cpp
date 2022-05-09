@@ -9,6 +9,7 @@
 #include "Common/Big.h"
 #include "Common/Small.h"
 #include "Common/Sentinel.h"
+#include "Common/Medium.h"
 #include "Common/Collider.h"
 #include "Common/Boss0.h"
 #include "LinkList.h"
@@ -25,8 +26,6 @@ namespace View {
 void SetVSync(bool);
 // 必須在 glewInit(); 執行完後,在執行物件實體的取得
 //Quad* g_pQuad;	// 宣告 Quad 指標物件，結束時記得釋放
-Player* g_player;
-Linklist<GameObject*> g_worldObjects;
 //Enemy** g_enemy;
 #define STAR_NUMBER 50
 Star* stars[STAR_NUMBER];
@@ -49,7 +48,7 @@ void init() {
 	//g_mxProjection = Ortho(-2.0f, 2.0f, -2.0f, 2.0f, -2.0f, 2.0f);
 	//g_pQuad->SetShader(g_mxModelView, g_mxProjection);
 	g_text1 = new Text("", vec3(0.6f, 0.8f, 0.8f), -SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 48, 0.7f);
-	g_worldObjects.pushBack(Player::GetInstance());
+	GameObject::g_worldObjects.pushBack(Player::GetInstance());
 	srand(time(NULL));
 	for (size_t i = 0; i < STAR_NUMBER; i++)
 	{
@@ -75,24 +74,29 @@ void BackgroundEffect(float delta) {
 float g_spawnCD = 0;
 bool g_bossSpawned = false;
 void WaveSpawn(float delta) {
-	if (g_spawnCD >= 1.f) {
+	if (g_bossSpawned)return;
+	if (g_spawnCD >= 4.5f) {
 		int s = rand() % 100;
-		if (s < 30) {
-			g_worldObjects.pushBack(new Big(nullptr, vec3(rand() % (SCREEN_WIDTH - 60) - (SCREEN_WIDTH - 60) / 2, SCREEN_HEIGHT - 200, 0), vec3(), vec3(16.f)));
+		if (s < 10) {
+			GameObject::g_worldObjects.pushBack(new Small(nullptr, vec3(rand() % (SCREEN_WIDTH - 60) - (SCREEN_WIDTH - 60) / 2, SCREEN_HEIGHT / 2 + 60, 0), vec3(), vec3(14.f)));
+		}
+		else if (s < 50) {
+
+			GameObject::g_worldObjects.pushBack(new Medium(nullptr, vec3(rand() % (SCREEN_WIDTH - 60) - (SCREEN_WIDTH - 60) / 2, SCREEN_HEIGHT / 2 + 60, 0), vec3(), vec3(16.f)));
 		}
 		else if (s < 80) {
-			g_worldObjects.pushBack(new Small(nullptr, vec3(rand() % (SCREEN_WIDTH - 60) - (SCREEN_WIDTH - 60) / 2, SCREEN_HEIGHT - 200, 0), vec3(), vec3(14.f)));
 
+			GameObject::g_worldObjects.pushBack(new Big(nullptr, vec3(rand() % (SCREEN_WIDTH - 60) - (SCREEN_WIDTH - 60) / 2, SCREEN_HEIGHT / 2 + 60, 0), vec3(), vec3(16.f)));
 		}
 		else {
-			g_worldObjects.pushBack(new Sentinel(nullptr, vec3(rand() % (SCREEN_WIDTH - 60) - (SCREEN_WIDTH - 60) / 2, SCREEN_HEIGHT - 200, 0), vec3(), vec3(12.f)));
+			GameObject::g_worldObjects.pushBack(new Sentinel(nullptr, vec3(rand() % (SCREEN_WIDTH - 60) - (SCREEN_WIDTH - 60) / 2, SCREEN_HEIGHT/2 +60, 0), vec3(), vec3(12.f)));
 
 		}
 		g_spawnCD -= 1.f;
 	}
 	g_spawnCD += delta;
-	if (!g_bossSpawned && Player::GetInstance()->GetExp() >= 100) {
-		g_worldObjects.pushBack(new Boss0(nullptr, vec3(0, 200, 0), vec3(), vec3(12.f)));
+	if (Player::GetInstance()->GetTotalExp() >= 10) {
+		GameObject::g_worldObjects.pushBack(Boss0::GetInstance());
 		g_bossSpawned = true;
 	}
 }
@@ -108,7 +112,7 @@ void GL_Display(void)
 		stars[i]->Draw();
 	}
 	//if (g_player != nullptr) g_player->Draw();
-	ListNode<GameObject*>* cur = g_worldObjects.front();
+	ListNode<GameObject*>* cur = GameObject::g_worldObjects.front();
 	while (cur != nullptr)
 	{
 		cur->data->Draw();
@@ -117,6 +121,8 @@ void GL_Display(void)
 	BulletManager::Draw();
 	TimedTextManager::Draw();
 	g_text1->Draw();
+	if (Player::GetInstance()->GetUpgradeTextShow())
+		Player::GetInstance()->GetUpgradeText()->Draw();
 	//Draw(g_textShader, "This is sample text", -100.f, 200.f, 1.f, vec3(0.5, 0.8f, 0.2f));
 	//Draw(g_textShader, "(C) LearnOpenGL.com", -100.f, 0.f, 1.f, vec3(0.3, 0.7f, 0.9f));
 	glutSwapBuffers();	// 交換 Frame Buffer
@@ -170,13 +176,13 @@ void onFrameMove(float delta)
 	//	}
 	//}
 	WaveSpawn(delta);
-	ListNode<GameObject*>* cur = g_worldObjects.front();
+	ListNode<GameObject*>* cur = GameObject::g_worldObjects.front();
 	while (cur != nullptr)
 	{
 		if (cur->data->isDisabled()) {
 			delete cur->data;
 			ListNode<GameObject*>* next = cur->next();
-			g_worldObjects.remove(cur);
+			GameObject::g_worldObjects.remove(cur);
 			cur = next;
 			continue;
 		}
@@ -193,7 +199,7 @@ void onFrameMove(float delta)
 	//int mouseX = 0, mouseY = 0;
 	//InputUtilities::GetMousePosition(mouseX, mouseY);
 	//std::cout << "Mouse: " + std::to_string( mouseX) +" " + std::to_string(mouseY) << std::endl;
-	g_text1->ChangeText("Exp: " + std::to_string(Player::GetInstance()->GetExp()));
+	g_text1->ChangeText("Exp: " + std::to_string(Player::GetInstance()->GetTotalExp()));
 }
 #pragma endregion
 int main(int argc, char** argv)
@@ -224,11 +230,16 @@ int main(int argc, char** argv)
 	glutMainLoop();
 	//delete g_pQuad;
 	delete g_text1;
-	delete g_player;
 	for (size_t i = 0; i < STAR_NUMBER; i++)
 	{
 		delete stars[i];
 	}
+	ListNode<GameObject*>* cur = GameObject::g_worldObjects.front();
+	while (cur != nullptr) {
+		delete cur->data;
+		cur = cur->next();
+	}
+	GameObject::g_worldObjects.clear();
 	//for (size_t i = 0; i < ENEMY_NUM; i++)
 	//{
 	//	delete g_enemy[i];

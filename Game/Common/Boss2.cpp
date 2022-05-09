@@ -3,6 +3,7 @@ Boss2::Boss2(GameObject* parent, const vec3& localPosition, const vec3& localRot
 	:Enemy(parent, localPosition, localRotation, localScale)
 {
 	_exp = 15;
+	_health = 100;
 	_shapesNumber = 1;
 	_shapes = new Shape * [_shapesNumber];
 	//vec3 a = vec3(0,1.2071,0);
@@ -14,7 +15,7 @@ Boss2::Boss2(GameObject* parent, const vec3& localPosition, const vec3& localRot
 		_shapes[i]->setModelMatrix(_trs);
 	}
 	//_children.pushBack(new MainGun(Faction::Enemy, this, vec3(0, 1.2071f, 0), vec3(), vec3(.5f)));
-	_collider = new Collider(static_cast<GameObject*>(this), ColliderType::Enemy, vec2(localPosition.x, localPosition.y), vec2(1, 1), vec2(localScale.x * 1.f, localScale.y * 1.f), std::bind(&Boss2::Onhit, this, std::placeholders::_1), 0b1);
+	_collider = new Collider(this, ColliderType::Enemy, vec2(localPosition.x, localPosition.y), vec2(2.5f, 2.5f), vec2(localScale.x * 1.f, localScale.y * 1.f), std::bind(&Boss2::Onhit, this, std::placeholders::_1), 0b1);
 }
 
 Boss2::~Boss2()
@@ -37,5 +38,5 @@ void Boss2::Move(GLfloat dt)
 
 void Boss2::Onhit(const Collider& other)
 {
-	std::cout << "Small was Hit" << std::endl;
+	std::cout << "boss2 was Hit" << std::endl;
 }

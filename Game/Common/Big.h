@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "Enemy.h"
 #include "Triangle.h"
+#include "Quad.h"
 #include "MainGun.h"
 class Big :public Enemy
 {

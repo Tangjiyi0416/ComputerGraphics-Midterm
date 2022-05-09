@@ -25,5 +25,6 @@ protected:
 	virtual void Onhit(const Collider&);
 	virtual void Move(GLfloat dt);
 	virtual void Attack(GLfloat dt);
+	virtual void OnKilled();
 	//Linklist<Bullet*> _bullets;
 };

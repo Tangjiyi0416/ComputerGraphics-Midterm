@@ -9,6 +9,8 @@ RotateGun::RotateGun(GameObject* parent, const vec3& localPosition, const vec3& 
 	_shapes = new Shape * [_shapesNumber];
 	_shapes[0] = new Circle;
 	_shapes[1] = new Quad;
+	_shapes[1]->SetColor(vec4(1.f, 1.f, .2f,1));
+
 	for (size_t i = 0; i < _shapesNumber; i++)
 	{
 		_shapes[i]->setModelMatrix(_trs);
@@ -26,7 +28,7 @@ bool RotateGun::Shoot()
 		vec2 v = normalize(vec2(_direction.x, _direction.y));
 		_direction = vec3(v.x, v.y, 0);
 		//std::cout << v.x <<" "<< v.y << std::endl;
-		BulletManager::GetInstance()->SpawnBullet(_faction, _direction, ToWorld(localPosition));
+		BulletManager::GetInstance()->SpawnBullet(_faction, _direction, ToWorld(localPosition),vec3(),vec3(1.4f));
 		_curCooldown = _cooldown;
 		return true;
 	}

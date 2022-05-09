@@ -17,7 +17,7 @@ Bullet::Bullet(Faction faction, vec3 direction, GLint damage, GameObject* parent
 		_shapes[0]->SetColor(vec4(1.f, 0, 0, 1.f));
 	}
 	else if (_damage == 2) {
-		_shapes[0]->SetColor(vec4(0.6f, 0.6f, 0, 1.f));
+		_shapes[0]->SetColor(vec4(1.f, 1.f, 0, 1.f));
 	}
 }
 Bullet::~Bullet()
@@ -30,7 +30,7 @@ void Bullet::Onhit(const Collider& other) {
 
 	ColliderType type = other.GetColliderType();
 	ICanTakeDamage* target;
-	TimedTextManager::SpawnText(std::to_string(_damage), 1, vec3(1.f, 1.f, 0.3f), vec2(localPosition.x, localPosition.y), 0.5f);
+	TimedTextManager::SpawnText(std::to_string(_damage), 1, vec3(1.f, 1-0.15f*_damage, 1-0.33f*_damage), vec2(localPosition.x, localPosition.y), 0.5f);
 	switch (type)
 	{
 	case ColliderType::Player:
@@ -52,7 +52,7 @@ void Bullet::Update(float dt) {
 	//Handle movement
 	localPosition += dt * _moveSpeed * _direction;
 	UpdateTRSMatrix();
-	if (localPosition.y >= SCREEN_HEIGHT / 2|| localPosition.y <= -SCREEN_HEIGHT / 2 - 40) {
+	if (localPosition.y >= SCREEN_HEIGHT / 2|| localPosition.y <= -SCREEN_HEIGHT / 2 - 40 || localPosition.x <= -SCREEN_WIDTH / 2 - 40 || localPosition.x >= SCREEN_WIDTH / 2 + 40) {
 		_disabled = true;
 		return;
 	}

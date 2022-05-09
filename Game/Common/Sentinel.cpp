@@ -7,7 +7,7 @@ Sentinel::Sentinel(GameObject* parent, const vec3& localPosition, const vec3& lo
 	_health = 15;
 	_shapes = new Shape * [_shapesNumber];
 	//vec3 a = vec3(0,1.2071,0);
-	_shapes[0] = new Lens(vec3(0, 0, 0), vec3(0, 0, 180), vec3(5.f), 2);
+	_shapes[0] = new Lens(vec3(0, 0, 0), vec3(0, 0, 180), vec3(5.f), 4);
 	_shapes[0]->SetColor(vec4(1.0f, 0.7f, 0.2f, 1.0f));
 
 	for (size_t i = 0; i < _shapesNumber; i++)
@@ -43,7 +43,7 @@ void Sentinel::Attack(GLfloat dt)
 void Sentinel::Move(GLfloat dt)
 {
 	vec3 _direction = _destination - localPosition;
-	if (_direction.x > 0.01f || _direction.y > 0.01f) {
+	if (abs(_direction.x) > 0.01f || abs(_direction.y) > 0.01f) {
 
 		_direction *= dt * 0.3f;
 		localPosition += _direction;
@@ -52,5 +52,13 @@ void Sentinel::Move(GLfloat dt)
 
 void Sentinel::Onhit(const Collider& other)
 {
+	if (other.GetColliderType() == ColliderType::Player) {
+		TimedTextManager::SpawnText("Hit!", 1, vec3(0.4f, 1.f, 0.3f), vec2(localPosition.x - 10.f, localPosition.y+10), 0.5f);
+		TimedTextManager::SpawnText("10", 1, vec3(1.f, 0.f, 0.f), vec2(localPosition.x - 10.f, localPosition.y), 0.5f);
+
+		Player::GetInstance()->localPosition.x = 0;
+		Player::GetInstance()->TakeDamage(10);
+		_disabled = true;
+	}
 	//std::cout << "Sentinel was Hit" << std::endl;
 }

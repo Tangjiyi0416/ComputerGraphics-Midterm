@@ -6,7 +6,7 @@ Small::Small(GameObject* parent, const vec3& localPosition, const vec3& localRot
 	_shapesNumber = 1;
 	_shapes = new Shape * [_shapesNumber];
 	//vec3 a = vec3(0,1.2071,0);
-	_shapes[0] = new Triangle(vec3(0, 0, 0), vec3(0,0,180));
+	_shapes[0] = new Triangle(vec3(0, 0, 0), vec3(0, 0, 180));
 	_shapes[0]->SetColor(vec4(0.4f, 0.7f, 0.4f, 1.0f));
 
 	for (size_t i = 0; i < _shapesNumber; i++)
@@ -36,4 +36,20 @@ void Small::Move(GLfloat dt)
 void Small::Onhit(const Collider& other)
 {
 	//std::cout << "Small was Hit" << std::endl;
+
+	if (other.GetColliderType() == ColliderType::Player) {
+		TimedTextManager::SpawnText("Pod Save!", 1, vec3(0.4f, 1.f, 0.3f), vec2(localPosition.x - 50.f, localPosition.y), 0.5f);
+		switch (rand() % 3)
+		{
+		case 0:
+			Player::GetInstance()->damage++;
+		case 1:
+			Player::GetInstance()->AddShield(1);
+		case 2:
+			Player::GetInstance()->AddExp(15);
+		default:
+			break;
+		}
+	}
+	_disabled = true;
 }

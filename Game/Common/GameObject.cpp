@@ -1,4 +1,5 @@
 #include "GameObject.h"
+ Linklist<GameObject*> GameObject::g_worldObjects;
 
 GameObject::GameObject(GameObject* parent, const vec3& localPosition, const vec3& localRotation, const vec3& localScale) :
 	localPosition{ localPosition },
@@ -24,6 +25,15 @@ GameObject::~GameObject()
 	}
 	//*/
 	while (_children.front() != nullptr) delete _children.front()->data, _children.popFront();
+}
+
+ void GameObject::MoveObjectToWorld() {
+	if (parent == nullptr) return;
+	localPosition = ToWorld(localRotation);
+	//localRotation = ToWorld(localRotation);
+	localScale = localScale*parent->localScale;
+	GameObject::g_worldObjects.pushBack(this);
+	parent = nullptr;
 }
 
 void GameObject::UpdateTRSMatrix() {

@@ -91,6 +91,21 @@
     <ClCompile Include="Common\RotateGun.cpp">
       <Filter>Common\Weapon</Filter>
     </ClCompile>
+    <ClCompile Include="Common\Missile.cpp">
+      <Filter>Common\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\Medium.cpp">
+      <Filter>Common\GameObjects\Enemys</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\SecGun.cpp">
+      <Filter>Common\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\BossGun.cpp">
+      <Filter>Common\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\BossGunMount.cpp">
+      <Filter>Common\Weapon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\Angel.h">
@@ -190,6 +205,21 @@
       <Filter>Common\GameObjects\Enemys</Filter>
     </ClInclude>
     <ClInclude Include="Common\RotateGun.h">
+      <Filter>Common\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Missile.h">
+      <Filter>Common\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Medium.h">
+      <Filter>Common\GameObjects\Enemys</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\SecGun.h">
+      <Filter>Common\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\BossGun.h">
+      <Filter>Common\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\BossGunMount.h">
       <Filter>Common\Weapon</Filter>
     </ClInclude>
   </ItemGroup>

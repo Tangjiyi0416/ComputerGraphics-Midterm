@@ -1,6 +1,6 @@
 #include "BulletManager.h"
 BulletManager* BulletManager::_instance = nullptr;
-Linklist<Bullet*> BulletManager::_bullets;
+Linklist<GameObject*> BulletManager::_bullets;
 BulletManager* BulletManager::GetInstance() {
 	if (_instance == nullptr)
 		_instance = new BulletManager;
@@ -19,14 +19,19 @@ void BulletManager::SpawnBullet(Faction faction, vec3 direction, vec3 position, 
 	//std::cout << "position: " << position.x << " " << position.y << std::endl;
 
 }
+void BulletManager::SpawnMissile(Faction faction,GameObject* taget, vec3 position, vec3 rotation, vec3 scale, GLint damage)
+{
+	_bullets.pushBack(new Missle(faction, damage, taget, position, rotation, scale));
+
+}
 void BulletManager::Update(float delta) {
 	//SetPosition bullets
-	ListNode<Bullet*>* curBullet = _bullets.front();
+	ListNode<GameObject*>* curBullet = _bullets.front();
 	while (curBullet != nullptr) {
 		if (curBullet->data != nullptr) {
 			if (curBullet->data->isDisabled()) {
 				delete curBullet->data;
-				ListNode<Bullet*>* nextBullet = curBullet->next();
+				ListNode<GameObject*>* nextBullet = curBullet->next();
 				_bullets.remove(curBullet);
 				curBullet = nextBullet;
 				continue;
@@ -43,7 +48,7 @@ void BulletManager::Update(float delta) {
 }
 
 void BulletManager::Draw() {
-	ListNode<Bullet*>* curBullet = _bullets.front();
+	ListNode<GameObject*>* curBullet = _bullets.front();
 	while (curBullet != nullptr) {
 		curBullet->data->Draw();
 		curBullet = curBullet->next();
