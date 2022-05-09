@@ -75,7 +75,7 @@ void BackgroundEffect(float delta) {
 float g_spawnCD = 0;
 bool g_bossSpawned = false;
 void WaveSpawn(float delta) {
-	if (g_spawnCD >= 2) {
+	if (g_spawnCD >= 1.f) {
 		int s = rand() % 100;
 		if (s < 30) {
 			g_worldObjects.pushBack(new Big(nullptr, vec3(rand() % (SCREEN_WIDTH - 60) - (SCREEN_WIDTH - 60) / 2, SCREEN_HEIGHT - 200, 0), vec3(), vec3(16.f)));
@@ -88,7 +88,7 @@ void WaveSpawn(float delta) {
 			g_worldObjects.pushBack(new Sentinel(nullptr, vec3(rand() % (SCREEN_WIDTH - 60) - (SCREEN_WIDTH - 60) / 2, SCREEN_HEIGHT - 200, 0), vec3(), vec3(12.f)));
 
 		}
-		g_spawnCD -= 2;
+		g_spawnCD -= 1.f;
 	}
 	g_spawnCD += delta;
 	if (!g_bossSpawned && Player::GetInstance()->GetExp() >= 100) {

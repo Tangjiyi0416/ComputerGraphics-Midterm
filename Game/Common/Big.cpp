@@ -42,5 +42,5 @@ void Big::Attack(GLfloat dt)
 
 void Big::Onhit(const Collider& other)
 {
-	std::cout << "Big was Hit" << std::endl;
+	//std::cout << "Big was Hit" << std::endl;
 }

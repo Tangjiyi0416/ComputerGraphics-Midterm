@@ -14,7 +14,7 @@ Enemy::~Enemy()
 void Enemy::Update(float dt) {
 
 	//Handle movement
-	if (localPosition.y <= -SCREEN_HEIGHT / 2-40) {
+	if (localPosition.y <= -SCREEN_HEIGHT / 2 - 40) {
 		_disabled = true;
 		return;
 	}
@@ -45,14 +45,13 @@ void Enemy::Onhit(const Collider& other) {
 }
 void Enemy::Move(GLfloat dt)
 {
-	vec3 _direction = vec3(0, -1, 0);
+	vec3 _direction(0, -1, 0);
 	/*if (InputUtilities::GetKeyState(GLUT_KEY_RIGHT, true))_direction.x += 1;
 	if (InputUtilities::GetKeyState(GLUT_KEY_LEFT, true))_direction.x -= 1;
 	if (InputUtilities::GetKeyState(GLUT_KEY_UP, true))_direction.y += 1;
 	if (InputUtilities::GetKeyState(GLUT_KEY_DOWN, true))_direction.y -= 1;*/
 	//normalize(_direction);
-	_direction *= dt * _speed;
-	localPosition += _direction;
+	localPosition += _direction * dt * _speed;
 }
 void Enemy::Attack(GLfloat dt)
 {

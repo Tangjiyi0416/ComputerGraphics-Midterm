@@ -35,5 +35,5 @@ void Small::Move(GLfloat dt)
 
 void Small::Onhit(const Collider& other)
 {
-	std::cout << "Small was Hit" << std::endl;
+	//std::cout << "Small was Hit" << std::endl;
 }

@@ -25,7 +25,7 @@ bool MainGun::Shoot()
 	if (_curCooldown <= 0) {
 		//std::cout << "gun faction:" << (int)_faction << std::endl;
 
-		BulletManager::GetInstance()->SpawnBullet(_faction, _direction, ToWorld(localPosition), _faction == Faction::Player ? Player::GetInstance()->damage : 1);
+		BulletManager::GetInstance()->SpawnBullet(_faction, _direction, ToWorld(localPosition),vec3(),vec3(1.f), _faction == Faction::Player ? Player::GetInstance()->damage : 1);
 		_curCooldown = _cooldown;
 		return true;
 	}

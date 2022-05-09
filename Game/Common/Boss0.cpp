@@ -41,5 +41,5 @@ void Boss0::Move(GLfloat dt)
 
 void Boss0::Onhit(const Collider& other)
 {
-	std::cout << "Small was Hit" << std::endl;
+	//std::cout << "Small was Hit" << std::endl;
 }

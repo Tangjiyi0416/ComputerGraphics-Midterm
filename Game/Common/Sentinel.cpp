@@ -14,7 +14,7 @@ Sentinel::Sentinel(GameObject* parent, const vec3& localPosition, const vec3& lo
 	{
 		_shapes[i]->setModelMatrix(_trs);
 	}
-	_gun = new RotateGun(this, vec3(0, 1.2071f, 0), vec3(), vec3(.5f));
+	_gun = new RotateGun(this, vec3(0));
 	_children.pushBack(_gun);
 	_collider = new Collider(static_cast<GameObject*>(this), ColliderType::Enemy, vec2(0, 0), vec2(2, 5), vec2(localScale.x * 1.f, localScale.y * 1.f), std::bind(&Sentinel::Onhit, this, std::placeholders::_1), 0b1);
 	GLfloat theta = M_PI * (rand() % 101 / 100.f);
@@ -52,5 +52,5 @@ void Sentinel::Move(GLfloat dt)
 
 void Sentinel::Onhit(const Collider& other)
 {
-	std::cout << "Small was Hit" << std::endl;
+	//std::cout << "Sentinel was Hit" << std::endl;
 }

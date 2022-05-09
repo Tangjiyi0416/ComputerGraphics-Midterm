@@ -27,7 +27,7 @@ public:
 	void SetColor(vec4 color) {
 		_shapes[1]->SetColor(color);
 	}
-	int damage=1;
+	GLint damage=1;
 private:
 	Player(GameObject* parent = nullptr, const vec3& localPosition = vec3(), const vec3& localRotation = vec3(), const vec3& localScale = vec3(1.f));
 	static Player* _instance;

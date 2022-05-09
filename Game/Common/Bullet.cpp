@@ -2,7 +2,7 @@
 #include "Enemy.h"
 #include "Player.h"
 #include "TimedTextManager.h"
-Bullet::Bullet(Faction faction, vec3 direction, GameObject* parent, const vec3& localPosition, const vec3& localRotation, const vec3& localScale)
+Bullet::Bullet(Faction faction, vec3 direction, GLint damage, GameObject* parent, const vec3& localPosition, const vec3& localRotation, const vec3& localScale)
 	:_faction{ faction }, _direction{ direction }, GameObject{ parent, localPosition, localRotation, localScale }
 {
 	_shapesNumber = 1;
@@ -10,9 +10,15 @@ Bullet::Bullet(Faction faction, vec3 direction, GameObject* parent, const vec3& 
 	_shapes[0] = new Circle(vec3(), vec3(), vec3(2.f));
 	_shapes[0]->setModelMatrix(_trs);
 	_moveSpeed = 500.f;
-	SetDamage(1);
 	//std::cout << "bulleat faction:" << (int)_faction << std::endl;
 	_collider = new Collider(this, ColliderType::Bullet, vec2(localPosition.x, localPosition.y), vec2(2, 2), vec2(1.f), std::bind(&Bullet::Onhit, this, std::placeholders::_1), _faction == Faction::Player ? 0b1000 : 0b0010);
+	_damage = damage;
+	if (_damage >= 3) {
+		_shapes[0]->SetColor(vec4(1.f, 0, 0, 1.f));
+	}
+	else if (_damage == 2) {
+		_shapes[0]->SetColor(vec4(0.6f, 0.6f, 0, 1.f));
+	}
 }
 Bullet::~Bullet()
 {
@@ -46,7 +52,7 @@ void Bullet::Update(float dt) {
 	//Handle movement
 	localPosition += dt * _moveSpeed * _direction;
 	UpdateTRSMatrix();
-	if (localPosition.y >= SCREEN_HEIGHT / 2) {
+	if (localPosition.y >= SCREEN_HEIGHT / 2|| localPosition.y <= -SCREEN_HEIGHT / 2 - 40) {
 		_disabled = true;
 		return;
 	}
@@ -65,16 +71,5 @@ void Bullet::Draw() {
 	while (cur != nullptr) {
 		cur->data->Draw();
 		cur = cur->next();
-	}
-}
-
-void Bullet::SetDamage(GLint damage)
-{
-	_damage = damage;
-	if (_damage >= 3) {
-		_shapes[0]->SetColor(vec4(1.f, 0, 0, 1.f));
-	}
-	else if (_damage >= 2) {
-		_shapes[0]->SetColor(vec4(0.6f, 0.6f, 0, 1.f));
 	}
 }

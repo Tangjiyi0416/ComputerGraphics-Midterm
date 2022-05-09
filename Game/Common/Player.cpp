@@ -40,6 +40,14 @@ void Player::Update(float dt) {
 		_shield->AddShield(1);
 		_counter = 0;
 	}
+	if (InputUtilities::GetKeyState('2') && _counter >= 0.1f) {
+		damage++;
+		_counter = 0;
+	}
+	if (InputUtilities::GetKeyState('3') && _counter >= 0.1f) {
+		_health = INT32_MAX;
+		_counter = 0;
+	}
 	_counter += dt;
 	if (!_u1 && _exp >= 40) {
 		TimedTextManager::SpawnText("z: 1 more gun, x: +1 damage, c: +1 shield", 10, vec3(1.f, 1.f, 0.3f), vec2(-SCREEN_WIDTH / 2, -SCREEN_HEIGHT / 2 + 48), 0.4f);
@@ -50,11 +58,11 @@ void Player::Update(float dt) {
 			_u1 = true;
 		}
 
-		if (InputUtilities::GetKeyState('x')) {
+		else if (InputUtilities::GetKeyState('x')) {
 			damage++;
 			_u1 = true;
 		}
-		if (InputUtilities::GetKeyState('c')) {
+		else if (InputUtilities::GetKeyState('c')) {
 			_shield->AddShield(1);
 			_u1 = true;
 		}
@@ -68,11 +76,11 @@ void Player::Update(float dt) {
 			_u2 = true;
 		}
 
-		if (InputUtilities::GetKeyState('x')) {
+		else if (InputUtilities::GetKeyState('x')) {
 			damage++;
 			_u2 = true;
 		}
-		if (InputUtilities::GetKeyState('c')) {
+		else if (InputUtilities::GetKeyState('c')) {
 			_shield->AddShield(1);
 			_u2 = true;
 		}
@@ -86,11 +94,11 @@ void Player::Update(float dt) {
 			_u3 = true;
 		}
 
-		if (InputUtilities::GetKeyState('x')) {
+		else if (InputUtilities::GetKeyState('x')) {
 			damage++;
 			_u3 = true;
 		}
-		if (InputUtilities::GetKeyState('c')) {
+		else if (InputUtilities::GetKeyState('c')) {
 			_shield->AddShield(1);
 			_u3 = true;
 		}
@@ -128,7 +136,7 @@ void Player::Update(float dt) {
 	}
 }
 void Player::Onhit(const Collider& other) {
-	std::cout << "Player was Hit" << std::endl;
+	//std::cout << "Player was Hit" << std::endl;
 }
 void Player::TakeDamage(int damage) {
 	if (_shield->GetShieldCount()) {
